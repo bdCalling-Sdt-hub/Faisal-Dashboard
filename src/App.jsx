@@ -15,7 +15,7 @@ import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import Package from "./Pages/Dashboard/Package";
-import EditSubscription from "./Pages/Dashboard/EditSubscription/EditSubscription";
+import EditPackage from "./Pages/Dashboard/EditPackage";
 import Category from "./Pages/Dashboard/Category/Category";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 
@@ -32,7 +32,7 @@ function App() {
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/package" element={<Package />} />
-              <Route path="/edit-subscription" element={<EditSubscription />} />
+              <Route path="/edit-package" element={<EditPackage />} />
               <Route path="/category" element={<Category />} />
               <Route path="/make-admin" element={<MakeAdmin />} />
               <Route path="/setting" element={<Setting />}></Route>

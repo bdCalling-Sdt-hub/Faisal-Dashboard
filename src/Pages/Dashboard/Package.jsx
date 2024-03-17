@@ -2,18 +2,19 @@ import React from 'react';
 import { useNavigate} from "react-router-dom"
 import BackButton from './BackButton';
 
-const Subscription = () => {
+const Package = () => {
     const navigate = useNavigate();
     const handleChangeEditPage=(value)=>{
         localStorage.setItem("package", JSON.stringify(value))
-        navigate("/edit-subscription")
+        navigate("/edit-package")
     }
 
     const data = [
         {
             name: "Basic",
             price: 258,
-            validaty: 1,
+            validity: "1 Month",
+            products_count : 15,
             features: [
                 "Add 15 Products for your business",
                 "Edit Products details",
@@ -23,7 +24,8 @@ const Subscription = () => {
         {
             name: "Premium",
             price: 765,
-            validaty: 2,
+            validity: "2 Months",
+            products_count : 25,
             features: [
                 "Add 15 Products for your business",
                 "Edit Products details",
@@ -33,7 +35,8 @@ const Subscription = () => {
         {
             name: "Standard",
             price: 900,
-            validaty: 3,
+            validity: "3 Months",
+            products_count : 35,
             features: [
                 "Add 15 Products for your business",
                 "Edit Products details",
@@ -43,7 +46,8 @@ const Subscription = () => {
         {
             name: "Dealer Ship",
             price: 1000,
-            validaty: 1,
+            validity: "1 Year",
+            products_count : 50,
             features: [
                 "Add 15 Products for your business",
                 "Edit Products details",
@@ -84,7 +88,7 @@ const Subscription = () => {
                             {/* package validation */}
                             <div style={{display: "flex", color: "#6A6D7C",  alignItems: "center", justifyContent: "space-between", marginTop: "15px"}}>
                                 <div>Package Validity</div>
-                                <div>{item?.validaty} { item?.name === "Dealer Ship" ? "Year" : "Months"} </div>
+                                <div>{item?.validity}</div>
                             </div>
 
                             <div style={{ background: "#D1D2D6", height: "2px", width: "100%", margin: "21px 0 37px 0"}} />
@@ -97,7 +101,6 @@ const Subscription = () => {
                                     ))
                                 }
                             </div>
-                            
 
                             <div 
                                 style={{
@@ -134,4 +137,4 @@ const Subscription = () => {
     )
 }
 
-export default Subscription
+export default Package
