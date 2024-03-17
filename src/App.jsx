@@ -6,7 +6,7 @@ import Notification from "./Pages/Dashboard/Notification/Notification";
 import Email from "./Pages/Auth/ForgotPassword";
 import Otp from "./Pages/Auth/Otp";
 import Login from "./Pages/Auth/Login";
-import UpdatePass from "./Pages/UpdatePass/UpdatePass";
+import UpdatePassword from "./Pages/Auth/UpdatePassword";
 import NotFound from "./404";
 import PrivateRoute from "./routes/PrivateRoute";
 import Package from "./Pages/Dashboard/Package";
@@ -36,7 +36,7 @@ function App() {
             <Route path="/email" element={<Email />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
-            <Route path="/update-password" element={<UpdatePass />} />
+            <Route path="/update-password" element={<UpdatePassword />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
