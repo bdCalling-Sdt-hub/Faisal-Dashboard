@@ -119,16 +119,17 @@ const Dashboard = () => {
                 key={index}
                 style={{
                   width: "100%",
-                  marginTop: 0,
-                  height: "38px",
+                  height: "34px",
                   position: "relative",
-                  paddingLeft: "44px"
+                  paddingLeft: "44px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
                 {
                   item.path === pathname
                   ?
-                  <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "38px", borderRadius: "0 10px 10px 0"}}></div>
+                  <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "35px", borderRadius: "0 10px 10px 0"}}></div>
                   :
                   null
 
@@ -138,13 +139,13 @@ const Dashboard = () => {
                   style={{
                     display: "flex",
                     color: item.path === pathname ? "#2FD5C7" : "#6A6D7C", 
-                    alignItems: "center", 
-                    gap: "14px",
-                    marginTop: "3px",
+                    alignItems: "center",
+                    margin: "auto  0 auto 0",
+                    gap: "14px"
                   }}
                 >
-                  <div>{item.icon}</div>
-                  <div style={{fontSize: "14px", textAlign: "center"}}>{item.title}</div>
+                  <div style={{height: "24px",}}>{item.icon}</div>
+                  <div style={{fontSize: "14px", textAlign: "center", height: "fit-content"}}>{item.title}</div>
                 </Link>
             </li>
             
@@ -204,6 +205,21 @@ const Dashboard = () => {
             }
 
             
+          </li>
+
+          <li
+            style={{
+              width: "100%",
+              left: "0",
+              position: "absolute",
+              bottom: "53px",
+            }}
+          >
+
+            <div onClick={handleLogOut} style={{display: "flex", width: "fit-content", margin: "0 auto 0 auto", alignItems: "center", gap: "14px", cursor: "pointer", justifyContent: "center"}}>
+              <div style={{color:"#6A6D7C", fontSize: "14px"}}>Logout</div>
+              <HiLogout color="#6A6D7C" size={24} />
+            </div>
           </li>
 
         </ul>

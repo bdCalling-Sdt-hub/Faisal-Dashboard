@@ -2,7 +2,6 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
-import Earning from "./Pages/Dashboard/Earning/Earning";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
 import Email from "./Pages/Email/Email";
@@ -28,9 +27,7 @@ function App() {
             <Route exact path="/" element={ <PrivateRoute> <Dashboard /> </PrivateRoute> }>
               <Route path="/" element={<DashboardHome />} />
               <Route path="/notification" element={<Notification />} />
-              <Route path="/earning/:income" element={<Earning />} />
               <Route path="/user-info" element={<UserInfo />} />
-              <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/package" element={<Package />} />
               <Route path="/edit-package" element={<EditPackage />} />
               <Route path="/category" element={<Category />} />
