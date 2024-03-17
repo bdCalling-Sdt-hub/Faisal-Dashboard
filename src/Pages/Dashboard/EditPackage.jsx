@@ -3,6 +3,7 @@ import { Form, Button, Input } from "antd"
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { useNavigate} from "react-router-dom"
 import BackButton from './BackButton';
+import Swal from 'sweetalert2';
 const EditPackage = () => {
     const navigate = useNavigate();
     const data = JSON.parse(localStorage.getItem("package"))
@@ -17,7 +18,14 @@ const EditPackage = () => {
         features: data?.features,
     };
     const handleUpdate=(values)=>{
-        console.log(values)
+        console.log(values);
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Updated Successfully",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
     const handleRest=(values)=>{
         window.location.reload();
