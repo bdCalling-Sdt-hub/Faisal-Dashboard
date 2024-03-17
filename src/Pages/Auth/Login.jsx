@@ -8,9 +8,6 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
-  const handleForget = () => {
-    navigate("/forget-password");
-  };
 
   return (
     <div 
@@ -95,8 +92,7 @@ const Login = () => {
             <a
               className="login-form-forgot"
               style={{ color: "#6A6D7C" }}
-              href=""
-              onClick={handleForget}
+              href="/forgot-password"
             >
               Forgot password
             </a>

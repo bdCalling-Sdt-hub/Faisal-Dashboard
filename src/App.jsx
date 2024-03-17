@@ -3,9 +3,9 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Notification from "./Pages/Dashboard/Notification/Notification";
-import Email from "./Pages/Email/Email";
+import Email from "./Pages/Auth/ForgotPassword";
 import Otp from "./Pages/Otp/Otp";
-import Login from "./Pages/Login/Login";
+import Login from "./Pages/Auth/Login";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import NotFound from "./404";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -14,6 +14,7 @@ import EditPackage from "./Pages/Dashboard/EditPackage";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 import ChangePassword from "./Pages/Dashboard/ChangePassword";
 import Profile from "./Pages/Dashboard/Profile";
+import ForgotPassword from "./Pages/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
 
             <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
-            <Route path="/forget-password" element={<Otp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/update-password" element={<UpdatePass />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
