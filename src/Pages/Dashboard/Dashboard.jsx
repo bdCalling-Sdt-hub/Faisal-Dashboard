@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { SettingOutlined } from "@ant-design/icons";
-import { Input, Layout,  Badge, Switch } from "antd";
+import { Input, Layout,  Badge, Switch, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/logo.jpg";
@@ -13,9 +13,13 @@ import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { RiNotification2Line, RiChat1Line, RiCopperDiamondLine } from "react-icons/ri";
 const { Header, Sider, Content } = Layout;
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 
 const Dashboard = () => {
+  const [dropdown, setDropdown] = useState(false)
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -49,12 +53,7 @@ const Dashboard = () => {
       title: "Pricing",
       path: "/package",
       icon: <RiCopperDiamondLine size={24} />,
-    },
-    {
-      title: "Settings",
-      path: "/setting",
-      icon: <SettingOutlined size={24} />,
-    },
+    }
   ];
 
   return (
@@ -150,6 +149,63 @@ const Dashboard = () => {
             </li>
             
           ))}
+
+          <li
+            style={{
+              width: "100%",
+              marginTop: 0,
+              height: "38px",
+              display: "flex", 
+              alignItems: "center", 
+              paddingLeft: "47px",
+              position: "relative",
+              gap: "14px",
+              color: "#6A6D7C",
+              cursor: "pointer"
+            }}
+          >
+            {
+              pathname === "/setting-change-password"
+              ?
+              <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "38px", borderRadius: "0 10px 10px 0"}}></div>
+              :
+              null
+
+            }
+            <IoSettingsOutline size={24} />
+            <p onClick={()=>setDropdown(!dropdown)} style={{fontSize: "15px", textAlign: "center"}}>Settings</p>
+            {
+              dropdown
+              ?
+              <MdKeyboardArrowDown size={24} />
+              :
+              <MdKeyboardArrowRight size={24} />
+            }
+            {
+              dropdown
+              &&
+              <div 
+                style={{
+                  position: "absolute", 
+                  left: "80px", 
+                  top: "40px", 
+                  width: "150px", 
+                  height: "50px", 
+                  borderRadius: "0 10px 10px 0"
+                }}
+              >
+                  <Link to="/settings/profile" style={{color: '#6A6D7C'}}>
+                    <p style={{marginBottom: '8px'}}>Profile</p>
+                  </Link>
+                  <Link to="/setting-change-password" style={{color: '#6A6D7C'}}>
+                    <p>Change Password</p>
+                  </Link>
+              </div>
+            }
+
+            
+          </li>
+
         </ul>
 
       </Sider>

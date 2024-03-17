@@ -18,6 +18,7 @@ import Package from "./Pages/Dashboard/Package";
 import EditPackage from "./Pages/Dashboard/EditPackage";
 import Category from "./Pages/Dashboard/Category/Category";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
+import ChangePassword from "./Pages/Dashboard/ChangePassword";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/edit-package" element={<EditPackage />} />
               <Route path="/category" element={<Category />} />
               <Route path="/make-admin" element={<MakeAdmin />} />
+              <Route path="/setting-change-password" element={<ChangePassword />} />
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/setting/:dynamic" element={<SettingPage />} />
             </Route>
