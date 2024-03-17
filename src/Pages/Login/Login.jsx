@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import logo from "../../Images/Logo.png";
 import style from "./Signin.module.css";
 
-const Signin = () => {
+const Login = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
@@ -122,4 +122,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Login;
