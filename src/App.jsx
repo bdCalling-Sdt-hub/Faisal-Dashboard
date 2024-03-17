@@ -4,7 +4,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 import Email from "./Pages/Auth/ForgotPassword";
-import Otp from "./Pages/Otp/Otp";
+import Otp from "./Pages/Auth/Otp";
 import Login from "./Pages/Auth/Login";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import NotFound from "./404";
@@ -35,6 +35,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/otp" element={<Otp />} />
             <Route path="/update-password" element={<UpdatePass />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
