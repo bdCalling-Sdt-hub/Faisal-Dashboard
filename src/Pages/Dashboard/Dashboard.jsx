@@ -165,7 +165,7 @@ const Dashboard = () => {
             }}
           >
             {
-              pathname === "/setting-change-password"
+              pathname === "/setting-change-password" || pathname === "/settings-profile"
               ?
               <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "38px", borderRadius: "0 10px 10px 0"}}></div>
               :
@@ -194,10 +194,10 @@ const Dashboard = () => {
                   borderRadius: "0 10px 10px 0"
                 }}
               >
-                  <Link to="/settings/profile" style={{color: '#6A6D7C'}}>
+                  <Link to="/settings-profile" style={{color: pathname === "/settings-profile" ? "#2FD5C7" : '#6A6D7C'}}>
                     <p style={{marginBottom: '8px'}}>Profile</p>
                   </Link>
-                  <Link to="/setting-change-password" style={{color: '#6A6D7C'}}>
+                  <Link to="/setting-change-password" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
                     <p>Change Password</p>
                   </Link>
               </div>

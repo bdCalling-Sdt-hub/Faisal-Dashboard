@@ -11,14 +11,13 @@ import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
 import NotFound from "./404";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import Setting from "./Pages/Dashboard/Setting/Setting";
-import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import Package from "./Pages/Dashboard/Package";
 import EditPackage from "./Pages/Dashboard/EditPackage";
 import Category from "./Pages/Dashboard/Category/Category";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 import ChangePassword from "./Pages/Dashboard/ChangePassword";
+import Profile from "./Pages/Dashboard/Profile";
 
 function App() {
   return (
@@ -37,8 +36,7 @@ function App() {
               <Route path="/category" element={<Category />} />
               <Route path="/make-admin" element={<MakeAdmin />} />
               <Route path="/setting-change-password" element={<ChangePassword />} />
-              <Route path="/setting" element={<Setting />}></Route>
-              <Route path="/setting/:dynamic" element={<SettingPage />} />
+              <Route path="/settings-profile" element={<Profile />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

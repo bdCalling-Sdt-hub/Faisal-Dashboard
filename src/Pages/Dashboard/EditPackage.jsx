@@ -18,7 +18,6 @@ const EditPackage = () => {
         features: data?.features,
     };
     const handleUpdate=(values)=>{
-        console.log(values);
         Swal.fire({
             position: "center",
             icon: "success",
