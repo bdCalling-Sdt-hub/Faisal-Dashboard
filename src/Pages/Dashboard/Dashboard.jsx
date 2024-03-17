@@ -8,13 +8,12 @@ import Styles from "./Dashboard.module.css";
 import { FaRegBell } from "react-icons/fa6";
 import { AiOutlineUser } from "react-icons/ai";
 import { HiLogout, HiOutlineMail } from "react-icons/hi";
-import { BiCrown } from "react-icons/bi";
 import { LuUser } from "react-icons/lu";
 import { TbUserPlus } from "react-icons/tb";
 import { MdDashboard } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import { RiNotification2Line, RiChat1Line } from "react-icons/ri";
+import { RiNotification2Line, RiChat1Line, RiCopperDiamondLine } from "react-icons/ri";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 const { Header, Sider, Content } = Layout;
 
@@ -184,8 +183,8 @@ const Dashboard = () => {
     },
     {
       title: "Pricing",
-      path: "/pricing",
-      icon: <BiCrown size={24} />,
+      path: "/package",
+      icon: <RiCopperDiamondLine size={24} />,
     },
     {
       title: "Settings",

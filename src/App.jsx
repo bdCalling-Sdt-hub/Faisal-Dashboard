@@ -14,7 +14,7 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Setting from "./Pages/Dashboard/Setting/Setting";
 import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
-import Subscription from "./Pages/Dashboard/Subscription/Subscription";
+import Package from "./Pages/Dashboard/Package";
 import EditSubscription from "./Pages/Dashboard/EditSubscription/EditSubscription";
 import Category from "./Pages/Dashboard/Category/Category";
 import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
@@ -31,7 +31,7 @@ function App() {
               <Route path="/earning/:income" element={<Earning />} />
               <Route path="/user-info" element={<UserInfo />} />
               <Route path="/user-payment" element={<UserPayment />} />
-              <Route path="/subscription" element={<Subscription />} />
+              <Route path="/package" element={<Package />} />
               <Route path="/edit-subscription" element={<EditSubscription />} />
               <Route path="/category" element={<Category />} />
               <Route path="/make-admin" element={<MakeAdmin />} />
