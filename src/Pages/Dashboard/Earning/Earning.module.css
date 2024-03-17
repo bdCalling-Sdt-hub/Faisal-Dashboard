@@ -1,0 +1,16 @@
+.card {
+  /* background: #ffb7d5; */
+  color: white;
+  height: 210px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.cardTitle {
+  margin-bottom: 20px;
+  font-weight: normal;
+}
