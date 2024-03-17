@@ -10,11 +10,19 @@ const Email = () => {
     console.log("Received values of form: ", values);
   };
   return (
-    <div className={style.emailContainer}>
-      <div>
-        <img src={logo} alt="" />
-      </div>
-      <div className={style.formContainer}>
+    <div
+      style={{
+        width: "100vh",
+        background: "#BFF2EE",
+        height: "100vh",
+        borderRadius: "12px",
+        display:"flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      
+      <div >
         <Title
           level={2}
           style={{
