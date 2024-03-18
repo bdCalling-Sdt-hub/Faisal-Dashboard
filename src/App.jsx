@@ -16,6 +16,7 @@ import ChangePassword from "./Pages/Dashboard/ChangePassword";
 import Profile from "./Pages/Dashboard/Profile";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import SellerList from "./Pages/Dashboard/SellerList";
+import SellerDetails from "./Pages/Dashboard/SellerDetails";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/setting-change-password" element={<ChangePassword />} />
               <Route path="/settings-profile" element={<Profile />} />
               <Route path="/seller-list" element={<SellerList />} />
+              <Route path="/seller-details/:id" element={<SellerDetails />} />
 
             </Route>
 

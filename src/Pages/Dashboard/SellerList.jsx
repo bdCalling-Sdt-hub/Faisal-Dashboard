@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import BackButton from './BackButton'
-import { Button, Table } from 'antd'
+import BackButton from './BackButton';
 import { FiEye } from 'react-icons/fi';
 import { FaRegTrashCan } from "react-icons/fa6";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { Table } from 'antd';
 
 const SellerList = () => {
+  const navigate = useNavigate();
     const [page, setPage] = useState(1); 
     const handlePageChange=(page)=>{
         setPage(page);
@@ -99,8 +101,8 @@ const SellerList = () => {
           key: "printView",
           render: (_,record) => (
             <div style={{display: "flex", alignItems: "center", gap: "16px"}}>
-                <FaRegTrashCan onClick={handleDelete} size={18} color='#919191' style={{ cursor: "pointer" }} />
-                <FiEye size={20} color='#919191' style={{ cursor: "pointer" }} />
+                <FaRegTrashCan onClick={()=>handleDelete(record?.id)} size={18} color='#919191' style={{ cursor: "pointer" }} />
+                <FiEye onClick={()=>navigate(`/seller-details/${record?.key}`)} size={20} color='#919191' style={{ cursor: "pointer" }} />
             </div>
           ),
         },
@@ -246,7 +248,37 @@ const SellerList = () => {
             status: "Active",
             selling: "500",
             balance: "600",
-        }
+        },
+        {
+          key: "15",
+          name: "Asad",
+          email: "asad@gmail.com",
+          date: "18 Jul, 2023  4:30pm",
+          location: "Banasree",
+          status: "Active",
+          selling: "500",
+          balance: "600",
+        },
+        {
+          key: "16",
+          name: "Fahim",
+          email: "fahim@gmail.com",
+          date: "18 Jul, 2023  4:30pm",
+          location: "Banasree",
+          status: "Inactive",
+          selling: "500",
+          balance: "600",
+        },
+        {
+          key: "17",
+          name: "Nadir",
+          email: "nadir@gmail.com",
+          date: "18 Jul, 2023  4:30pm",
+          location: "Banasree",
+          status: "Active",
+          selling: "500",
+          balance: "600",
+      }
     ];
 
     return (
@@ -256,7 +288,7 @@ const SellerList = () => {
             </div>
             <div>
                 <Table columns={columns} dataSource={data} pagination={{
-                    pageSize: 13,
+                    pageSize: 16,
                     onChange: handlePageChange
                 }}/>
             </div>
