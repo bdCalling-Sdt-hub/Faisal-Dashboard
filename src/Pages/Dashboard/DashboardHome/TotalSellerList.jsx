@@ -8,6 +8,7 @@ import { MdOutlineFilterList } from "react-icons/md";
 import { FiEye, FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { DownOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const data = [
   {
@@ -189,7 +190,9 @@ const InvoiceTable = () =>{
       <div style={{height: "fit-content", borderRadius: "8px", background: "white", padding: "20px 24px 0 24px"}}>
         <div style={{display: "flex", alignItems: "center", marginBottom: "20px", justifyContent: "space-between"}}>
           <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Top Seller List</h1>
-          <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
+          <Link to="seller-list">
+            <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
+          </Link>
         </div>
 
         <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px"}}> 

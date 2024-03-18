@@ -53,6 +53,6 @@ ul , li {
 div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm{
   background-color: #2FD5C7 !important;
   margin: 0 !important; 
-  width: 350px !important;
+  /* width: 350px !important; */
   border-radius: 8px !important;
 }

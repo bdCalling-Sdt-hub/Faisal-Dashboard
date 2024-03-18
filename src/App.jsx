@@ -15,6 +15,7 @@ import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 import ChangePassword from "./Pages/Dashboard/ChangePassword";
 import Profile from "./Pages/Dashboard/Profile";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
+import SellerList from "./Pages/Dashboard/SellerList";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
               <Route path="/make-admin" element={<MakeAdmin />} />
               <Route path="/setting-change-password" element={<ChangePassword />} />
               <Route path="/settings-profile" element={<Profile />} />
+              <Route path="/seller-list" element={<SellerList />} />
+
             </Route>
 
             <Route path="/login" element={<Login />} />
