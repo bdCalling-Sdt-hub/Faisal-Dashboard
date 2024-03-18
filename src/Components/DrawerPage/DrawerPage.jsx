@@ -3,8 +3,8 @@
 import { Badge, Button, Form, Input, Select, Typography } from "antd";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
-import cardImg from "../../Images/Cards.png";
-import img from "../../Images/image 1.png";
+import cardImg from "../../assets/not-found.png";
+import img from "../../assets/not-found.png";
 const { Title } = Typography;
 
 const { Option } = Select;
