@@ -24,7 +24,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const handleLogOut=()=>{
-    navigate('/');
+    navigate('/login');
     window.location.reload();
   }
 

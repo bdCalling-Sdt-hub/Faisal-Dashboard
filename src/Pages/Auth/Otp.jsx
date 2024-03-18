@@ -1,9 +1,11 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import OTPInput from "react-otp-input";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Otp = () => {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [err, setErr] = useState("");
 
@@ -20,6 +22,7 @@ const Otp = () => {
       confirmButtonText: "Confirm",
     }).then((result) => {
       if (result.isConfirmed) {
+        navigate("/update-password")
       }
     });
   }

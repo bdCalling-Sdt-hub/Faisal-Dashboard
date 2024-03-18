@@ -1,10 +1,22 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   const onFinish = (values) => {
     localStorage.setItem("email", JSON.stringify(values.email))
     console.log("Received values of form: ", values.email);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Send OTP ",
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      navigate("/otp")
+    });
   };
   return (
     <div
