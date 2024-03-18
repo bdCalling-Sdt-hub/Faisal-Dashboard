@@ -3,8 +3,8 @@ import React, { useState } from "react";
 
 const UpdatePassword = () => {
   const [newPassError, setNewPassError] = useState("");
-    const [conPassError, setConPassError] = useState("");
-    const [curPassError, setCurPassError] = useState("");
+  const [conPassError, setConPassError] = useState("");
+  const [curPassError, setCurPassError] = useState("");
   const [err, setErr] = useState("");
   const onFinish = (values) => {
     const { password, confirmPassword } = values;
@@ -60,13 +60,13 @@ const UpdatePassword = () => {
         onFinish={onFinish}
       >
         <h1 style={{fontSize: "32px", color: "#6A6D7C", marginBottom: "13px", textAlign: "center"}}>Set a new password</h1>
-        <p style={{width: "300px", color: "#B8B8B8", marginBottom: "40px", margin: "0 auto 0 auto"}}>
+        <p style={{width: "270px", color: "#B8B8B8", marginBottom: "45px", margin: "0 auto 0 auto"}}>
           Create a new password. Ensure it differs from
           previous ones for security
         </p>
     
         <div style={{marginBottom: "20px"}}>
-            <label style={{display: "block", marginBottom: "5px" }} htmlFor="">New Password</label>
+            <label style={{display: "block", color:"#6A6D7C", marginBottom: "5px" }} htmlFor="">New Password</label>
             <Form.Item
                 name="new_password"
                 rules={[
@@ -79,7 +79,7 @@ const UpdatePassword = () => {
             >
                 <Input.Password
                     type="password"
-                    placeholder="Enter password"
+                    placeholder="Enter New password"
                     style={{
                     border: "1px solid #E0E4EC",
                     height: "52px",
@@ -93,20 +93,20 @@ const UpdatePassword = () => {
         </div>
     
         <div style={{marginBottom: "40px"}}>
-            <label style={{display: "block", marginBottom: "5px" }} htmlFor="email">Re-Type Password</label>
+            <label style={{display: "block", color:"#6A6D7C", marginBottom: "5px" }} htmlFor="email">Confirm Password</label>
             <Form.Item
                 style={{marginBottom: 0}}
                 name="confirm_password"
                 rules={[
                     {
                     required: true,
-                    message: "Please input your Re-type Password!",
+                    message: "Please input your Confirm Password!",
                     },
                 ]}
             >
                 <Input.Password
                     type="password"
-                    placeholder="Enter password"
+                    placeholder="Enter Confirm password"
                     style={{
                     border: "1px solid #E0E4EC",
                     height: "52px",
