@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import OTPInput from "react-otp-input";
+import Swal from "sweetalert2";
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
@@ -8,7 +9,20 @@ const Otp = () => {
 
   const handleResendEmail = () => {
     const email = JSON.parse(localStorage.getItem("email"));
+
   };
+  const handleVerifyOtp=()=>{
+    Swal.fire({
+      title: "Password Reset",
+      text: "Your password has been successfully reset. click confirm to set a new password",
+      showDenyButton: false,
+      showCancelButton: false,
+      confirmButtonText: "Confirm",
+    }).then((result) => {
+      if (result.isConfirmed) {
+      }
+    });
+  }
 
   return (
     <div
@@ -23,11 +37,11 @@ const Otp = () => {
     >
       <div style={{width: "630px",  background: "white", borderRadius: "12px", padding: "90px 57px"}}>
         <h1 style={{fontSize: "32px", color: "#6A6D7C", marginBottom: "13px", textAlign: "center"}}>Check your email</h1>
-        <p style={{width: "380px", color: "#B8B8B8", marginBottom: "30px", margin: "0 auto 0 auto"}}>
+        <p style={{width: "380px", color: "#B8B8B8",  margin: "0 auto 0 auto"}}>
           We sent a reset link to <span style={{color: "#545454"}}> contact@dscode...com </span>
           enter 6 digit code that mentioned in the email
         </p>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center", marginTop: "30px",}}>
           <OTPInput
             value={otp}
             onChange={setOtp}
@@ -46,6 +60,7 @@ const Otp = () => {
           />
         </div>
         <Button
+          onClick={handleVerifyOtp}
               block
               htmlType="submit"
               style={{

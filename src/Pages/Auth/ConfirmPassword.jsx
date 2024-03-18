@@ -1,7 +1,9 @@
-import { Button } from 'antd'
+import { Button } from 'antd';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const ResetPassword = () => {
+const ConfirmPassword = () => {
+    const navigate = useNavigate();
     return (
         <div
             style={{
@@ -15,12 +17,20 @@ const ResetPassword = () => {
         >
             <div
                 style={{width: "630px", background: "white", borderRadius: "12px", padding: "90px 57px"}}
-            >
-                <h1 style={{fontSize: "32px", color: "#6A6D7C", marginBottom: "17px", textAlign: "center"}}>Password reset</h1>
-                <p style={{width: "350px", color: "#6A6D7C", marginBottom: "80px", fontSize: "16px", fontWeight: 400, margin: "0 auto 0 auto"}}>
-                    Your password has been successfully reset. click confirm to set a new password
-                </p>
+            >   
+                <div 
+                    style={{
+                        width: "409px"
+                    }}
+                >
+                    <h1 style={{fontSize: "32px", color: "#6A6D7C", marginBottom: "17px", textAlign: "center"}}>Successfully</h1>
+                    <p style={{color: "#6A6D7C",  fontSize: "16px", fontWeight: 400, margin: "0 auto 0 auto"}}>
+                        Your password has been successfully reset. click confirm to set a new password
+                    </p>
+                </div>
+                
                 <Button
+                    onClick={()=>navigate("/update-password")}
                     type="primary"
                     htmlType="submit"
                     block
@@ -31,6 +41,8 @@ const ResetPassword = () => {
                         color: "white",
                         borderRadius: "8px",
                         outline: "none",
+                        cursor: "pointer",
+                        marginTop: "80px"
                     }}
                 >
                     Confirm
@@ -40,4 +52,4 @@ const ResetPassword = () => {
     )
 }
 
-export default ResetPassword
+export default ConfirmPassword
