@@ -279,7 +279,7 @@ const Dashboard = () => {
               <RiNotification2Line color="#6A6A6A" size={24} />
             </Badge>
 
-            <Switch trackHeight={30}  />
+            <Switch trackheight={30}  />
             <div
               style={{
                 width: "170px",

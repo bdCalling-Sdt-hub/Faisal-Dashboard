@@ -84,27 +84,25 @@ const data = [
 ];
 
 const InvoiceTable = () =>{
-  const [search, setSearch] = useState("")
-  const [category, setCategory] = useState("All")
-    const [rentData, setRentData] = useState([]); // Data fetched from the server
-    const [totalItems, setTotalItems] = useState(0); // Total number of items
-    const [page, setPage] = useState(1); // Current page number
-    const pageSize = 5;
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState(new URLSearchParams(window.location.search).get('category') || "All")
+  const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1); // Current page number
+  const pageSize = 5;
 
 
-    const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-    const [invoiceData, setInvoiceData] = useState(null);
-    console.log(invoiceData)
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [invoiceData, setInvoiceData] = useState(null);
+  console.log(invoiceData)
   
-    const showDrawer = (record) => {
-      setIsDrawerVisible(true);
-      setInvoiceData(record);
-    };
-  
-    const closeDrawer = () => {
-      setIsDrawerVisible(false);
-      setInvoiceData(null);
-    };
+  const showDrawer = (record) => {
+    setIsDrawerVisible(true);
+    setInvoiceData(record);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    setInvoiceData(null);
+  };
 
 
     const columns = [
@@ -169,6 +167,7 @@ const InvoiceTable = () =>{
 
     const onClick = ({ key }) => {
       setCategory(key)
+      window.history.pushState(null, "", `?category=${key}`);
     };
 
     const items = [
@@ -268,10 +267,15 @@ const InvoiceTable = () =>{
             </div>
         </div>
 
-        <Table columns={columns} dataSource={data} pagination={{
-          pageSize: 3,
-          onChange: handlePageChange
-        }}/>
+        <Table 
+          columns={columns} 
+          dataSource={data} 
+          pagination={{
+            pageSize: 3,
+            defaultCurrent: parseInt(page),
+            onChange: handlePageChange
+          }}
+        />
 
         {/* 
           <Drawer

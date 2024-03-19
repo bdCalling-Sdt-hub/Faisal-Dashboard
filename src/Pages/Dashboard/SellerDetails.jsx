@@ -69,7 +69,7 @@ const data = [
 ];
 
 const SellerDetails = () => {
-    const [year, setYear] = useState(2024)
+    const [year, setYear] = useState( new URLSearchParams(window.location.search).get('year') || 2024)
     const onClick = ({ key }) => {
         setYear(key)
         window.history.pushState(null, "", `?year=${year}`);
@@ -125,7 +125,10 @@ const SellerDetails = () => {
             <div style={{marginBottom: "15px"}}>
                 <BackButton link='/seller-list' />
             </div>
+            
             <div style={{marginBottom: "30px", display: "flex", alignItems: "center", gap: "20px"}}>
+
+                {/* seller details section */}
                 <div style={{
                     width: "100%",
                     height: "334px",
@@ -194,7 +197,8 @@ const SellerDetails = () => {
                         
                     </div>
                 </div>
-
+                
+                {/* overall sales section  */}
                 <div style={{
                     width: "100%",
                     height: "334px",

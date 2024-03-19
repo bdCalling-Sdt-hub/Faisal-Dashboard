@@ -189,7 +189,11 @@ const Emails = () => {
                                 justifyContent: 'center',
                                 marginTop: "25px"
                             }}>
-                                <Pagination defaultCurrent={1} total={10} current={page} onChange={handlePageChange} />
+                                <Pagination 
+                                    defaultCurrent={parseInt(page)} 
+                                    total={10} 
+                                    onChange={handlePageChange} 
+                                />
                             </div>
                         </div> 
                     }

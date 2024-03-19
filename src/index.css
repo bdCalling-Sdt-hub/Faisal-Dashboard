@@ -20,7 +20,8 @@ ul , li {
 }
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item{
-  padding: 0 10px !important;
+  padding: 10px 10px !important;
+  margin-bottom: 0 !important;
 }
 
 /* table padding remove */
@@ -31,7 +32,7 @@ ul , li {
   border-bottom: none !important;
 }
 :where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper .ant-table-thead>tr>th{
-  padding: 8px 16px !important;
+  /* padding: 8px 16px !important; */
 }
 :where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper .ant-table-tbody>tr>td{
   padding: 4px 16px !important;
@@ -55,4 +56,17 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm{
   margin: 0 !important; 
   /* width: 350px !important; */
   border-radius: 8px !important;
+}
+
+/* slider */
+:where(.css-dev-only-do-not-override-17a39f8).ant-slider .ant-slider-handle:hover::after{
+  box-shadow: 0 0 0 4px #6A6D7C ;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-slider .ant-slider-handle:focus::after {
+  box-shadow: 0 0 0 4px #6A6D7C ;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-slider .ant-slider-handle::after{
+  box-shadow: 0 0 0 4px #6A6D7C ;
+
 }

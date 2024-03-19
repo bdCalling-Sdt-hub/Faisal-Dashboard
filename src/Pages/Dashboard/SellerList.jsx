@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BackButton from './BackButton';
 import { FiEye } from 'react-icons/fi';
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -8,11 +8,11 @@ import { Table } from 'antd';
 
 const SellerList = () => {
   const navigate = useNavigate();
-    const [page, setPage] = useState(1); 
-    const handlePageChange=(page)=>{
-        setPage(page);
-        window.history.pushState(null, "", `?page=${page}`);
-    }
+  const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1);
+  const handlePageChange=(page)=>{
+    setPage(page);
+    window.history.pushState(null, "", `?page=${page}`);
+  }
 
     const handleDelete=(id)=>{
         Swal.fire({
@@ -288,8 +288,9 @@ const SellerList = () => {
             </div>
             <div>
                 <Table columns={columns} dataSource={data} pagination={{
-                    pageSize: 16,
-                    onChange: handlePageChange
+                  pageSize: 16,
+                  current: parseInt(page),
+                  onChange: handlePageChange
                 }}/>
             </div>
 
