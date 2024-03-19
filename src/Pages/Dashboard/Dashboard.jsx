@@ -46,7 +46,7 @@ const Dashboard = () => {
     },
     {
       title: "Email",
-      path: "/email",
+      path: "/emails",
       icon: <HiOutlineMail size={24} />,
     },
     {

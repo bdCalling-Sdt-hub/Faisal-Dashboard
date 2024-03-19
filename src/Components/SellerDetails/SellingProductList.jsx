@@ -85,6 +85,7 @@ const SellingProductList = () => {
 
     const onPanelChange = (value, mode) => {
     };
+    
 
 
     return (

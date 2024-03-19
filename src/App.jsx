@@ -17,6 +17,7 @@ import Profile from "./Pages/Dashboard/Profile";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import SellerList from "./Pages/Dashboard/SellerList";
 import SellerDetails from "./Pages/Dashboard/SellerDetails";
+import Emails from "./Pages/Dashboard/Emails";
 
 function App() {
   return (
@@ -34,11 +35,11 @@ function App() {
               <Route path="/settings-profile" element={<Profile />} />
               <Route path="/seller-list" element={<SellerList />} />
               <Route path="/seller-details/:id" element={<SellerDetails />} />
+              <Route path="/emails" element={<Emails />} />
 
             </Route>
 
             <Route path="/login" element={<Login />} />
-            <Route path="/email" element={<Email />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/update-password" element={<UpdatePassword />} />
