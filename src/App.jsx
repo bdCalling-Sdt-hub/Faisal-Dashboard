@@ -2,7 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
-import Notification from "./Pages/Dashboard/Notification/Notification";
+import Notification from "./Pages/Dashboard/Notification";
 import Email from "./Pages/Auth/ForgotPassword";
 import Otp from "./Pages/Auth/Otp";
 import Login from "./Pages/Auth/Login";
