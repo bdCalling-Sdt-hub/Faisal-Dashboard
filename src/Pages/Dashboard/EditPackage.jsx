@@ -68,7 +68,6 @@ const EditPackage = () => {
                                         color: "#D1D2D6",
                                         outline: "none",
                                         padding: 0,
-                                        color: "#6A6D7C",
                                         backgroundColor: "transparent",
                                     }}
                                     readOnly

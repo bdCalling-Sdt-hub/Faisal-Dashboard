@@ -82,7 +82,6 @@ const Emails = () => {
                             width: "100%", 
                             height: "42px", 
                             background: "#E3F9F7", 
-                            color: "white", 
                             borderRadius: "8px",
                             marginTop: "14px",
                             display: "flex",

@@ -288,7 +288,7 @@ const SellerList = () => {
             </div>
             <div>
                 <Table columns={columns} dataSource={data} pagination={{
-                  pageSize: 16,
+                  pageSize: 12,
                   current: parseInt(page),
                   onChange: handlePageChange
                 }}/>

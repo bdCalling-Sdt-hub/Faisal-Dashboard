@@ -112,12 +112,13 @@ const SellingProductList = () => {
             background: "white",
             padding: "20px",
             borderRadius: "10px",
+            
 
         }}>
-            <div style={{display: "flex", alignItems: "center", marginBottom: "20px", justifyContent: "space-between"}}>
+            <div style={{display: "flex", alignItems: "center", marginBottom: "10px", justifyContent: "space-between"}}>
                 <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Selling Products</h1>
                 <Link to="/seller-product-list">
-                    <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
+                  <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
                 </Link>
             </div>
             

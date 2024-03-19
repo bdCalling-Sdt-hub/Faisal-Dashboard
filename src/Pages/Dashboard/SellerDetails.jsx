@@ -126,7 +126,7 @@ const SellerDetails = () => {
                 <BackButton link='/seller-list' />
             </div>
             
-            <div style={{marginBottom: "30px", display: "flex", alignItems: "center", gap: "20px"}}>
+            <div style={{marginBottom: "10px", display: "flex", alignItems: "center", gap: "20px"}}>
 
                 {/* seller details section */}
                 <div style={{

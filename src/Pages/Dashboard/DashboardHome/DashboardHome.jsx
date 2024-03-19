@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
 import "./DashboardHome.css";
-import TotalSellerList from "./TotalSellerList";
+import TotalSellerListTable from "../../../Components/Dashboard/TotalSellerListTable";
 import TotalSellerChart from "./TotalSellerChart";
 import DailyOverviewChart from "./DailyOverviewChart";
 import { HiUserGroup } from "react-icons/hi";
@@ -118,7 +118,7 @@ function DashboardHome() {
               <UserCard />
             </div>
       </div>
-      <TotalSellerList />
+      <TotalSellerListTable />
     </div>
   );
 }

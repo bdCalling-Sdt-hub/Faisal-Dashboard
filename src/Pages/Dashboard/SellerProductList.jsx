@@ -4,7 +4,6 @@ import { CiFilter } from 'react-icons/ci'
 import { Dropdown, Slider, Table, Calendar } from 'antd'
 import StockDropdown from '../../Util/StockDropdown'
 import { DownOutlined } from "@ant-design/icons";
-import dayjs from 'dayjs';
 
 const data = [
     {
@@ -236,7 +235,7 @@ const SellerProductList = () => {
                 padding: "20px"
             }}>
                 <div style={{display: "flex", alignItems: "center", marginBottom: "20px", justifyContent: "space-between"}}>
-                    <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Selling Products</h1>
+                    <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Seller Products List</h1>
                     <div style={{display: "flex", alignItems: "center", gap:"16px", position: "relative"}}>
                         <div onClick={(e)=>(e.stopPropagation(), setFilter(true))} style={{width: "38px", cursor: "pointer", height: "39px", display:"flex", alignItems:"center", justifyContent: "center", background: "#F6F6F6", borderRadius:"8px"}}>
                             <CiFilter size={24} color='#717171' />
@@ -353,7 +352,7 @@ const SellerProductList = () => {
                         columns={columns} 
                         dataSource={data} 
                         pagination={{
-                            pageSize: 10,
+                            pageSize: 8,
                             defaultCurrent: parseInt(page),
                             onChange: handlePageChange
                         }}

@@ -19,6 +19,7 @@ import SellerList from "./Pages/Dashboard/SellerList";
 import SellerDetails from "./Pages/Dashboard/SellerDetails";
 import Emails from "./Pages/Dashboard/Emails";
 import SellerProductList from "./Pages/Dashboard/SellerProductList";
+import TotalSellerList from "./Pages/Dashboard/TotalSellerList";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/setting-change-password" element={<ChangePassword />} />
               <Route path="/settings-profile" element={<Profile />} />
               <Route path="/seller-list" element={<SellerList />} />
+              <Route path="/total-seller-list" element={<TotalSellerList />} />
               <Route path="/seller-details/:id" element={<SellerDetails />} />
               <Route path="/seller-product-list" element={<SellerProductList />} />
               <Route path="/emails" element={<Emails />} />
