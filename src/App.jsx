@@ -19,6 +19,7 @@ import SellerDetails from "./Pages/Dashboard/SellerDetails";
 import Emails from "./Pages/Dashboard/Emails";
 import SellerProductList from "./Pages/Dashboard/SellerProductList";
 import TotalSellerList from "./Pages/Dashboard/TotalSellerList";
+import TopSellerList from "./Pages/Dashboard/TopSellerList";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
               <Route path="/seller-details/:id" element={<SellerDetails />} />
               <Route path="/seller-product-list" element={<SellerProductList />} />
               <Route path="/emails" element={<Emails />} />
+              <Route path="/top-seller-list" element={<TopSellerList />} />
             </Route>
 
             <Route path="/login" element={<Login />} />

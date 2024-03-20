@@ -9,6 +9,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import { LuBox } from "react-icons/lu";
 import { TbDatabaseDollar } from "react-icons/tb";
 import UserCard from "./UserCard";
+import { Link } from "react-router-dom";
 
 function DashboardHome() {
   const onChange = (pageNumber) => {
@@ -113,7 +114,9 @@ function DashboardHome() {
             >
               <div style={{display: "flex", alignItems: "center", marginBottom: "20px", justifyContent: "space-between"}}>
                 <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Top Seller</h1>
-                <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
+                <Link to="/top-seller-list">
+                  <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
+                </Link>
               </div>
               <UserCard />
             </div>
