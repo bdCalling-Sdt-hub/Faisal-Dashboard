@@ -32,11 +32,11 @@
   border: 0;
 }
 
-:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a{
-  background-color: #6C6C6C !important;
+.ant-pagination .ant-pagination-item-active a{
+  background-color: #6C6C6C ;
   color: white !important;
-}
-:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a:hover{
+} 
+.ant-pagination .ant-pagination-item-active a:hover{
   color: "white" !important;
 }
 
@@ -68,16 +68,6 @@
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: 30px;
-}
-
-.ant-upload .ant-upload-select{
-  width: 100% !important;
-}
-
-
-.ant-upload {
-  width: 90% !important;
-  height: 190px !important;
 }
 .ant-upload-select{
   width: 100% !important;

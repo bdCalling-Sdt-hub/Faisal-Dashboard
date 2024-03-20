@@ -64,7 +64,6 @@ const data = [
     email: "fahim@gmail.com",
     date: "18 Jul, 2023  4:30pm",
     status: "Inactive",
-    status: "Out Of Stock",
     selling: "500",
     balance: "600",
   },
