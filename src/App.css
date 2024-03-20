@@ -34,6 +34,7 @@
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a{
   background-color: #6C6C6C !important;
+  color: white !important;
 }
 :where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a:hover{
   color: "white" !important;

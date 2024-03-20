@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { SettingOutlined } from "@ant-design/icons";
-import { Input, Layout,  Badge, Switch, Menu } from "antd";
+import { Input, Layout,  Badge, } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/logo.jpg";
@@ -264,7 +262,7 @@ const Dashboard = () => {
 
           <div
             style={{
-              width: "320px",
+              width: "280px",
               display: "flex", 
               alignItems: "center",
               // gap: "16px",
@@ -272,14 +270,16 @@ const Dashboard = () => {
             }}
           >
             <Badge color="#23A095" count={5}>
-              <RiChat1Line color="#6A6A6A" size={24} />
+              <Link to="/emails" >
+                <RiChat1Line color="#6A6A6A" size={24} />
+              </Link>
             </Badge>
 
             <Badge color="#C30303" count={5}>
-              <RiNotification2Line color="#6A6A6A" size={24} />
+              <Link to="/notification" >
+                <RiNotification2Line color="#6A6A6A" size={24} />
+              </Link>
             </Badge>
-
-            <Switch trackheight={30}  />
             <div
               style={{
                 width: "170px",

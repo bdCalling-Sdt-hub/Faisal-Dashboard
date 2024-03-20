@@ -1,5 +1,5 @@
 import { Table } from 'antd';
-import React from 'react'
+import React, { useState } from 'react'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import BackButton from './BackButton';
 
@@ -80,10 +80,89 @@ const data = [
       selling: "500",
       balance: "600",
       image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "8",
+      name: "Tushar ",
+      email: "tushar@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "In Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "9",
+      name: "Rahman",
+      email: "rahman@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "In Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "10",
+      name: "Rafsan",
+      email: "rafsan@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "In Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "11",
+      name: "jusef",
+      email: "jusef@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "Out Of Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "12",
+      name: "Asad",
+      email: "asad@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "Out Of Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "13",
+      name: "Fahim",
+      email: "fahim@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "Out Of Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
+    },
+    {
+      key: "14",
+      name: "Nadir",
+      email: "nadir@gmail.com",
+      date: "18 Jul, 2023  4:30pm",
+      location: "Banasree",
+      status: "In Stock",
+      selling: "500",
+      balance: "600",
+      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
     }
 ];
 const Notification = () => {
-    const columns = [
+  const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1);
+
+  const columns = [
         {
           title: "S.No",
           dataIndex: "key",
@@ -127,7 +206,14 @@ const Notification = () => {
             </div>
           ),
         }
-    ];
+  ];
+
+  const handlePageChange=(page)=>{
+    setPage(page);
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    window.history.pushState(null, "", `?${params.toString()}`);
+  }
     return (
         <div>
             
@@ -141,11 +227,18 @@ const Notification = () => {
                     borderRadius: "14px"
                 }}
             >
-                <h1>Notifications</h1>
+                <h1 style={{fontSize: "32px", fontWeight: 600, color: "#6A6D7C"}}
+                >
+                  Notifications
+                </h1>
                 <Table 
                     columns={columns} 
                     dataSource={data} 
-                    pagination={false}
+                    pagination={{
+                      pageSize: 8,
+                      defaultCurrent: parseInt(page),
+                      onChange: handlePageChange
+                    }}
                 />
             </div>
         </div>
