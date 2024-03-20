@@ -218,10 +218,6 @@ const SellerProductList = () => {
         window.history.pushState(null, "", `?${params.toString()}`);
     };
 
-    const onPanelChange = (newValue) => {
-        console.log(newValue)
-      };
-
     return (
         <div >
             <div style={{marginBottom: "25px"}}>
