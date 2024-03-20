@@ -3,7 +3,6 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Notification from "./Pages/Dashboard/Notification";
-import Email from "./Pages/Auth/ForgotPassword";
 import Otp from "./Pages/Auth/Otp";
 import Login from "./Pages/Auth/Login";
 import UpdatePassword from "./Pages/Auth/UpdatePassword";
@@ -40,7 +39,6 @@ function App() {
               <Route path="/seller-details/:id" element={<SellerDetails />} />
               <Route path="/seller-product-list" element={<SellerProductList />} />
               <Route path="/emails" element={<Emails />} />
-
             </Route>
 
             <Route path="/login" element={<Login />} />

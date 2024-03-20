@@ -227,10 +227,7 @@ const Notification = () => {
                     borderRadius: "14px"
                 }}
             >
-                <h1 style={{fontSize: "32px", fontWeight: 600, color: "#6A6D7C"}}
-                >
-                  Notifications
-                </h1>
+                <h1 style={{fontSize: "32px", fontWeight: 600, color: "#6A6D7C"}}>Notifications </h1>
                 <Table 
                     columns={columns} 
                     dataSource={data} 

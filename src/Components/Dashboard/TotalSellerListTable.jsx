@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaRegTrashCan } from "react-icons/fa6";
 
+
 const data = [
   {
     key: "1",
@@ -163,10 +164,12 @@ const TotalSellerListTable = () =>{
         dataIndex: "printView",
         key: "printView",
         render: (_,record) => (
-          <div style={{display: "flex", alignItems: "center", gap: "16px"}}>
-            <FaRegTrashCan onClick={()=>handleDelete(record?.id)} size={18} color='#919191' style={{ cursor: "pointer" }} />
-            <FiEye onClick={()=>navigate(`/seller-details/${record?.key}`)} size={20} color='#919191' style={{ cursor: "pointer" }} />
-          </div>
+            <div style={{display: "flex", alignItems: "center", gap: "16px"}}>
+              <FaRegTrashCan onClick={()=>handleDelete(record?.id)} size={18} color='#919191' style={{ cursor: "pointer" }} />
+              <Link to={`/seller-details/${record?.key}`}>
+                <FiEye size={20} color='#919191' style={{ cursor: "pointer" }} />
+              </Link>
+            </div>
         ),
       },
   ];
