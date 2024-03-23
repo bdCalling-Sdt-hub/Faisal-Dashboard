@@ -113,43 +113,48 @@ const Dashboard = () => {
           }} 
         >
           {linkItems.map((item, index) => (
-            <li
-                key={index}
-                style={{
-                  width: "100%",
-                  height: "34px",
-                  position: "relative",
-                  paddingLeft: "44px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                {
-                  item.path === pathname
-                  ?
-                  <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "35px", borderRadius: "0 10px 10px 0"}}></div>
-                  :
-                  null
-
-                }
-                <Link 
-                  to={item.path} 
+            <Link 
+              key={index}
+              to={item.path} >
+              <li
+                  key={index}
                   style={{
+                    width: "100%",
+                    height: "34px",
+                    position: "relative",
+                    paddingLeft: "44px",
                     display: "flex",
-                    color: item.path === pathname ? "#2FD5C7" : "#6A6D7C", 
                     alignItems: "center",
-                    margin: "auto  0 auto 0",
-                    gap: "14px"
                   }}
                 >
-                  <div style={{height: "24px",}}>{item.icon}</div>
-                  <div style={{fontSize: "14px", textAlign: "center", height: "fit-content"}}>{item.title}</div>
-                </Link>
-            </li>
+                  {
+                    item.path === pathname
+                    ?
+                    <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "35px", borderRadius: "0 10px 10px 0"}}></div>
+                    :
+                    null
+
+                  }
+                  <div 
+                    to={item.path} 
+                    style={{
+                      display: "flex",
+                      color: item.path === pathname ? "#2FD5C7" : "#6A6D7C", 
+                      alignItems: "center",
+                      margin: "auto  0 auto 0",
+                      gap: "14px"
+                    }}
+                  >
+                    <div style={{height: "24px",}}>{item.icon}</div>
+                    <div style={{fontSize: "14px", textAlign: "center", height: "fit-content"}}>{item.title}</div>
+                  </div>
+              </li>
+            </Link>
             
           ))}
 
           <li
+            onClick={()=>setDropdown(!dropdown)}
             style={{
               width: "100%",
               marginTop: 0,
@@ -172,7 +177,7 @@ const Dashboard = () => {
 
             }
             <IoSettingsOutline size={24} />
-            <p onClick={()=>setDropdown(!dropdown)} style={{fontSize: "15px", textAlign: "center"}}>Settings</p>
+            <p  style={{fontSize: "15px", textAlign: "center"}}>Settings</p>
             {
               dropdown
               ?
