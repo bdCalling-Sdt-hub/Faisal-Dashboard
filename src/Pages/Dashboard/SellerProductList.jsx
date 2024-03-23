@@ -335,7 +335,7 @@ const SellerProductList = () => {
                                     padding: "16px"
                                 }}
                             >
-                                <Calendar fullscreen={false} onPanelChange={onPanelChange} onSelect={onSelect}  />
+                                <Calendar fullscreen={false}  onSelect={onSelect}  />
                             </div>
                         }
 

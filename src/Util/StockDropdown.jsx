@@ -5,12 +5,12 @@ import { Dropdown } from 'antd';
 const StockDropdown = ({stock, setStock}) => {
     const items = [
         {
-          label: "In Stock",
-          key: "In Stock",
+            label: "In Stock",
+            key: "In Stock",
         },
         {
-          label: "Out of Stock",
-          key: "Out of Stock",
+            label: "Out of Stock",
+            key: "Out of Stock",
         }
     ];
 

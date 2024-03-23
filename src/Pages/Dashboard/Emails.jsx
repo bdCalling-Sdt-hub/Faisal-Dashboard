@@ -14,23 +14,25 @@ const Emails = () => {
     const [tab, setTab] = useState(new URLSearchParams(window.location.search).get('tab') || "inbox");
     const [page, setPage] = useState(new URLSearchParams(window.location.search).get('page') || 1);
     const [search, setSearch] = useState("");
-    const [from, setFrom] = useState("")
     const [to, setTo] = useState("");
     const [message, setMessage] = useState("")
 
     const handleReset=()=>{
-        setFrom("");
         setTo("");
         setMessage("")
     }
     const handleTab=(value)=>{
-        setTab(value)
-        window.history.pushState(null, "", `?tab=${value}`);
+        setTab(value);
+        const params = new URLSearchParams(window.location.search);
+        params.set('tab', value);
+        window.history.pushState(null, "", `?${params.toString()}`);
     }
 
     const handlePageChange = (page) => {
         setPage(page);
-        window.history.pushState(null, "", `?page=${page}`);
+        const params = new URLSearchParams(window.location.search);
+        params.set('page', page);
+        window.history.pushState(null, "", `?${params.toString()}`);
     };
 
     return (
@@ -236,21 +238,6 @@ const Emails = () => {
 
                                 {/* email form and to  */}
                                 <div style={{padding: "0 0 30px 24px"}}>
-                                    <div style={{display: "flex", alignItems: "center", gap: "15px", marginBottom: "24px"}}>
-                                        <label htmlFor="">From:</label>
-                                        <Input
-                                            label="Form"
-                                            onChange={(e)=>setFrom(e.target.value)}
-                                            placeholder="Search..."
-                                            style={{
-                                                width: "400px",
-                                                height: "42px",
-                                                fontSize: "14px"
-                                            }}
-                                            value={from}
-                                            size="middle"
-                                        />
-                                    </div>
                                     <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
                                         <label htmlFor="">To:</label>
                                         <Input
@@ -261,7 +248,6 @@ const Emails = () => {
                                                 width: "400px",
                                                 height: "42px",
                                                 fontSize: "14px",
-                                                marginLeft: "17px"
                                             }}
                                             value={to}
                                             size="middle"
