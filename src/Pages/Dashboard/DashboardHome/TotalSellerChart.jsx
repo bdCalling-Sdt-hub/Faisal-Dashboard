@@ -170,18 +170,28 @@ const TotalSellerChart = () => {
           </div>
     </div>
 
-    
+    <div
+    >
       <BarChart
-        width={450}
+        width={495}
         height={132}
         data={data}
-        
+        style={{marginLeft:"-35px"}}
+        padding={{
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0,
+        }}
       >
         <XAxis dataKey="name" />
+        <YAxis dataKey="amt" />
+        <Tooltip/>
         <Bar  barSize={10} dataKey="pv" stackId="a" fill="#8884d8" />
         <Bar  barSize={10} dataKey="uv" stackId="a" fill="#82ca9d" />
         <Bar  barSize={10} dataKey="tv" stackId="a" fill="##2FD5C7" />
       </BarChart>
+    </div>
   </div>)
 };
 

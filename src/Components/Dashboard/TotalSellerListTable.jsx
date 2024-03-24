@@ -270,7 +270,7 @@ const TotalSellerListTable = () =>{
   }, []);
 
   return(
-    <div style={{height: "fit-content", borderRadius: "8px", background: "white", padding: "15px 24px 0 24px"}}>
+    <div style={{height: "fit-content", borderRadius: "8px", background: "white", padding: "17px 24px"}}>
       <div style={{display: "flex", alignItems: "center", marginBottom: "15px", justifyContent: "space-between"}}>
         <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Total Seller List</h1>
         <Link to="/seller-list">
@@ -279,12 +279,8 @@ const TotalSellerListTable = () =>{
       </div>
       <Table 
         columns={columns} 
-        dataSource={data} 
-        pagination={{
-          pageSize: 4,
-          defaultCurrent: parseInt(page),
-          onChange: handlePageChange
-        }}
+        dataSource={data.slice(0, 5)} 
+        pagination={false}
       />
     </div>
   )

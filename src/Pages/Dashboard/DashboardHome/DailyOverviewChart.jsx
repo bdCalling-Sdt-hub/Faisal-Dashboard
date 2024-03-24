@@ -137,15 +137,19 @@ export default function DailyRentChart() {
           </div>
         </div>
 
-        
+        <div>
           <AreaChart
-            width={450}
+            width={495}
             height={132}
+            style={{marginLeft:"-35px"}}
             data={data}
           >
             <XAxis dataKey="name" />
+            <YAxis dataKey="mt" />
+            <Tooltip/>
             <Area type="monotone" dataKey="uv" stroke="#2FD5C7" fill="#2FD5C7" />
           </AreaChart>
+        </div>
       </div>
     )
   
