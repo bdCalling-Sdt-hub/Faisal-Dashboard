@@ -48,7 +48,9 @@ const SellingProductList = () => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
   const [toggleId, setToggleId] = useState();
+  const [toggleId2, setToggleId2] = useState();
 
 
   const columns = [
@@ -107,7 +109,34 @@ const SellingProductList = () => {
           }
         </button>
       ),
-    }
+    },
+    {
+      title: "Banner Action",
+      dataIndex: "baction",
+      key: "baction",
+      render: (_, record) => (
+        <button
+          onClick={()=>(setToggle2(!toggle2), setToggleId2(record.key))} 
+          style={{
+            padding: "3px 0",
+            borderRadius: 4,
+            border: "none",
+            background: "#2FD5C7",
+            color: "white",
+            cursor: "pointer",
+            width: 120
+          }}
+        >
+          {
+            toggleId2 === record.key && toggle2
+            ?
+            "Remove Banner"
+            :
+            "Add  Banner"
+          }
+        </button>
+      ),
+  }
   ];
     
   const items = [
