@@ -206,7 +206,15 @@ const Dashboard = () => {
                     <p style={{marginBottom: '8px'}}>Profile</p>
                   </Link>
                   <Link to="/setting-change-password" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
-                    <p>Change Password</p>
+                    <p style={{marginBottom: '8px'}}>Change Password</p>
+                  </Link>
+
+                  <Link to="/about-us" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
+                    <p style={{marginBottom: '8px'}}>About Us</p>
+                  </Link>
+
+                  <Link to="/privacy-policy" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
+                    <p>Privacy Policy</p>
                   </Link>
               </div>
             }

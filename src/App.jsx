@@ -21,6 +21,8 @@ import TotalSellerList from "./Pages/Dashboard/TotalSellerList";
 import TopSellerList from "./Pages/Dashboard/TopSellerList";
 import Category from "./Pages/Dashboard/Category";
 import AddCategory from "./Pages/Dashboard/AddCategory";
+import AboutUs from "./Pages/Dashboard/AboutUs";
+import PrivacyPolicy from "./Pages/Dashboard/PrivacyPolicy";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
               <Route path="/top-seller-list" element={<TopSellerList />} />
               <Route path="/category" element={<Category />} />
               <Route path="/add-category" element={<AddCategory />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Route>
 
             <Route path="/login" element={<Login />} />
