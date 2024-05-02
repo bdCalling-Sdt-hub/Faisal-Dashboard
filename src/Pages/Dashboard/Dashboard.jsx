@@ -6,14 +6,13 @@ import LogoText from "../../assets/logo-text.jpg";
 import { HiLogout, HiOutlineMail } from "react-icons/hi";
 import { LuUser } from "react-icons/lu";
 import { TbUserPlus } from "react-icons/tb";
-import { MdDashboard } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { RiNotification2Line, RiChat1Line, RiCopperDiamondLine } from "react-icons/ri";
 const { Header, Sider, Content } = Layout;
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdDashboard, MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
+import { CgMenuGridO } from "react-icons/cg";
 
 
 const Dashboard = () => {
@@ -41,6 +40,11 @@ const Dashboard = () => {
       title: "Make Admin",
       path: "/make-admin",
       icon: <TbUserPlus size={24} />,
+    },
+    {
+      title: "Category",
+      path: "/category",
+      icon: <CgMenuGridO size={24} />,
     },
     {
       title: "Email",

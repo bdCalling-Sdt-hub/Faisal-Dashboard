@@ -19,6 +19,8 @@ import Emails from "./Pages/Dashboard/Emails";
 import SellerProductList from "./Pages/Dashboard/SellerProductList";
 import TotalSellerList from "./Pages/Dashboard/TotalSellerList";
 import TopSellerList from "./Pages/Dashboard/TopSellerList";
+import Category from "./Pages/Dashboard/Category";
+import AddCategory from "./Pages/Dashboard/AddCategory";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
               <Route path="/seller-product-list" element={<SellerProductList />} />
               <Route path="/emails" element={<Emails />} />
               <Route path="/top-seller-list" element={<TopSellerList />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/add-category" element={<AddCategory />} />
             </Route>
 
             <Route path="/login" element={<Login />} />

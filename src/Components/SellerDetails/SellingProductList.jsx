@@ -41,50 +41,80 @@ const data = [
   }
 ];
 
-const columns = [
-  {
-    title: "Image",
-    dataIndex: "image",
-    key: "image",
-    render: (_,record) => (
-      <img src={record?.image} style={{width:"40px", height: "40px"}}  alt="" />
-    ),
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Price",
-    dataIndex: "price",
-    key: "price",
-    render: (_,record) => (
-      <p>${record?.price}</p>
-    ),
-  },
-  {
-    title: "Sold",
-    dataIndex: "selling",
-    key: "selling",
-  },
-  {
-    title: "Stock",
-    dataIndex: "status",
-    key: "status",
-    render: (_,record) => (
-      <div style={{display: "flex", alignItems: 'center', gap: "8px"}}>
-          <div style={{width: "10px", height: "10px", background: "#03FB75", borderRadius: "100%"}}></div>
-          <p>{record?.status && "In Stock"}</p>
-      </div>
-    ),
-  }
-];
+
 const SellingProductList = () => {
   const [category, setCategory] = useState(new URLSearchParams(window.location.search).get('category') || "All")
   const [stock, setStock] = useState(new URLSearchParams(window.location.search).get('stock') || "In Stock");
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState(false);
+  const [toggle, setToggle] = useState(false);
+
+  const columns = [
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (_,record) => (
+        <img src={record?.image} style={{width:"40px", height: "40px"}}  alt="" />
+      ),
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      render: (_,record) => (
+        <p>${record?.price}</p>
+      ),
+    },
+    {
+      title: "Sold",
+      dataIndex: "selling",
+      key: "selling",
+    },
+    {
+      title: "Stock",
+      dataIndex: "status",
+      key: "status",
+      render: (_,record) => (
+        <div style={{display: "flex", alignItems: 'center', gap: "8px"}}>
+            <div style={{width: "10px", height: "10px", background: "#03FB75", borderRadius: "100%"}}></div>
+            <p>{record?.status && "In Stock"}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_,record) => (
+        <button
+          onClick={()=>setToggle(!toggle)} 
+          style={{
+            padding: "3px 0",
+            borderRadius: 4,
+            border: "none",
+            background: "#2FD5C7",
+            color: "white",
+            cursor: "pointer",
+            width: 120
+          }}
+        >
+          {
+            toggle
+            ?
+            "Featured"
+            :
+            "Product" 
+          }
+        </button>
+      ),
+    }
+  ];
     
   const items = [
       {
