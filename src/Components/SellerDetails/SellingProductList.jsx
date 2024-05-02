@@ -48,8 +48,18 @@ const SellingProductList = () => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [toggleId, setToggleId] = useState();
+
 
   const columns = [
+    {
+      title: "Serial No.",
+      dataIndex: "no",
+      key: "no",
+      render: (_,record) => (
+        <p>{record.key}</p>
+      ),
+    },
     {
       title: "Image",
       dataIndex: "image",
@@ -72,28 +82,12 @@ const SellingProductList = () => {
       ),
     },
     {
-      title: "Sold",
-      dataIndex: "selling",
-      key: "selling",
-    },
-    {
-      title: "Stock",
-      dataIndex: "status",
-      key: "status",
-      render: (_,record) => (
-        <div style={{display: "flex", alignItems: 'center', gap: "8px"}}>
-            <div style={{width: "10px", height: "10px", background: "#03FB75", borderRadius: "100%"}}></div>
-            <p>{record?.status && "In Stock"}</p>
-        </div>
-      ),
-    },
-    {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: (_,record) => (
+      render: (_, record) => (
         <button
-          onClick={()=>setToggle(!toggle)} 
+          onClick={()=>(setToggle(!toggle), setToggleId(record.key))} 
           style={{
             padding: "3px 0",
             borderRadius: 4,
@@ -105,11 +99,11 @@ const SellingProductList = () => {
           }}
         >
           {
-            toggle
+            toggleId === record.key && toggle
             ?
             "Featured"
             :
-            "Product" 
+            "Product"
           }
         </button>
       ),
