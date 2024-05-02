@@ -112,7 +112,28 @@ const data = [
     }
 ];
   
-const columns = [
+
+const SellerProductList = () => {
+    const [value, setValue] = useState(new URLSearchParams(window.location.search).get('date') || new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }));
+    const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1);
+    const [category, setCategory] = useState(new URLSearchParams(window.location.search).get('category') || "All")
+    const [stock, setStock] = useState(new URLSearchParams(window.location.search).get('stock') || "In Stock");
+    const [date, setDate] = useState(false);
+    const [filter, setFilter] = useState(false);
+    const dropdownRef = useRef();
+    const [toggle, setToggle] = useState(false);
+  const [toggleId, setToggleId] = useState();
+
+
+  const columns = [
+    {
+      title: "Serial No.",
+      dataIndex: "no",
+      key: "no",
+      render: (_,record) => (
+        <p>{record.key}</p>
+      ),
+    },
     {
       title: "Image",
       dataIndex: "image",
@@ -135,37 +156,33 @@ const columns = [
       ),
     },
     {
-      title: "Sold",
-      dataIndex: "selling",
-      key: "selling",
-    },
-    {
-      title: "Stock",
-      dataIndex: "status",
-      key: "status",
-      render: (_,record) => (
-        <div style={{display: "flex", alignItems: 'center', gap: "8px"}}>
-            <div 
-                style={{
-                    width: "10px", 
-                    height: "10px", 
-                    background: record.status === "In Stock" ?  "#03FB75" : "#FB0303" ,
-                    borderRadius: "100%",
-                }}
-            ></div>
-            <p>{record?.status}</p>
-        </div>
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_, record) => (
+        <button
+          onClick={()=>(setToggle(!toggle), setToggleId(record.key))} 
+          style={{
+            padding: "3px 0",
+            borderRadius: 4,
+            border: "none",
+            background: "#2FD5C7",
+            color: "white",
+            cursor: "pointer",
+            width: 120
+          }}
+        >
+          {
+            toggleId === record.key && toggle
+            ?
+            "Product"
+            :
+            "Featured"
+          }
+        </button>
       ),
     }
-];
-const SellerProductList = () => {
-    const [value, setValue] = useState(new URLSearchParams(window.location.search).get('date') || new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }));
-    const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1);
-    const [category, setCategory] = useState(new URLSearchParams(window.location.search).get('category') || "All")
-    const [stock, setStock] = useState(new URLSearchParams(window.location.search).get('stock') || "In Stock");
-    const [date, setDate] = useState(false);
-    const [filter, setFilter] = useState(false);
-    const dropdownRef = useRef();
+  ];
     
     const items = [
         {

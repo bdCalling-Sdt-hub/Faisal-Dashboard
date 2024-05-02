@@ -101,9 +101,9 @@ const SellingProductList = () => {
           {
             toggleId === record.key && toggle
             ?
-            "Featured"
-            :
             "Product"
+            :
+            "Featured"
           }
         </button>
       ),
