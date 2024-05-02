@@ -34,13 +34,13 @@ function DashboardHome() {
       count: "120",
       icon: <LuBox  color="#FEC53D" size={32}/>,
       bgColor: "#FFF3D6"
-    },
+    },/* 
     {
       name: "Total Profit",
       count: "1000",
       icon: <TbDatabaseDollar color="#5664FD" size={32} />,
       bgColor: "#DDE0FF"
-    },
+    }, */
   ]
 
   return (
@@ -48,7 +48,7 @@ function DashboardHome() {
       <Row gutter={26}>
         {
           data.map((item, index)=>
-            <Col key={index}  xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:6}}>
+            <Col key={index}  xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:8}}>
               <div  className='income-card'>
                   <div 
                     style={{
@@ -86,16 +86,18 @@ function DashboardHome() {
           )
         }
       </Row>
-      <div style={{ marginTop: "20px", marginBottom: "15px", display: "grid" ,gridTemplateColumns: "auto auto auto", gap: "20px" }} >
-            <div  style={{ width: '500px', height: "276px", borderRadius:"15px", padding:"20px",backgroundColor:"#fff"}}>
+
+      <div style={{ marginTop: "20px", marginBottom: "15px", display: "flex" , gap: "20px" }} >
+            {/* <div  style={{ width: '500px', height: "276px", borderRadius:"15px", padding:"20px",backgroundColor:"#fff"}}>
               <DailyOverviewChart />
-            </div>
+            </div> */}
           
             <div
               style={{
+
                 borderRadius: "15px",
                 backgroundColor: "#fff",
-                width: '500px',
+                width: '100%',
                 height: "276px",
                 padding:"10px 20px 20px 20px"
               }}
@@ -107,7 +109,7 @@ function DashboardHome() {
               style={{
                 borderRadius: "15px",
                 backgroundColor: "#fff",
-                width: '500px',
+                width: '48%',
                 height: "276px",
                 padding:"10px 20px 20px 20px"
               }}

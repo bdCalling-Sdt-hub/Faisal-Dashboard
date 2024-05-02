@@ -158,6 +158,12 @@ const Emails = () => {
                             
                             {/* email list */}
                             <div>
+                                <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 18px 0 18px",}}>
+                                    <p style={{width: "5%", textAlign: "center"}}>Name</p>
+                                    <p style={{width: 0, textAlign: "center"}}>email</p>
+                                    <p style={{width: "25%",}}>Details</p>
+                                    <p style={{width: "5%", textAlign: "center"}}>Time</p>
+                                </div>
                                 {
                                     [...Array(10).keys()].map((item, index)=>
                                         <div key={index}
@@ -174,6 +180,7 @@ const Emails = () => {
                                                 }}
                                             >
                                                 <p>Jullu Jalal</p>
+                                                <p>jullu@gmail.com</p>
                                                 <p>Our Bachelor of Commerce program is ACBSP-accredited.</p>
                                                 <p>8:38 AM</p>
                                             </div>

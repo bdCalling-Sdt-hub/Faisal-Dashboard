@@ -292,16 +292,6 @@ const TotalSellerList = () => {
             </p>
           )
         },
-        {
-          title: "Total Selling",
-          dataIndex: "selling",
-          key: "selling",
-        },
-        {
-          title: "Balance",
-          dataIndex: "balance",
-          key: "balance",
-        },
         
         {
           title: "ACTION",

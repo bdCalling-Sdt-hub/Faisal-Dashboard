@@ -22,6 +22,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import SellingProductList from '../../Components/SellerDetails/SellingProductList';
+import BannerProducts from '../../Components/SellerDetails/BannerProducts';
 
 const data = [
     {
@@ -130,7 +131,7 @@ const SellerDetails = () => {
 
                 {/* seller details section */}
                 <div style={{
-                    width: "100%",
+                    width: "30%",
                     height: "334px",
                     backgroundColor: "white",
                     padding: "18px",
@@ -142,10 +143,10 @@ const SellerDetails = () => {
                             margin: "0 auto 11px auto"
                         }}
                     >
-                        <div style={{width: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <div style={{width: "100%", display: "flex", alignItems: "center", marginBottom: 12, justifyContent: "center"}}>
                             <img 
                                 src="https://cdn.retouchme.com/blogs/55-1657818846-lg.webp" 
-                                style={{width: "69px",  textAlign:"center", height: "69px", borderRadius: "100%", margin: "0 auto 0 auto"}} 
+                                style={{width: 150,  textAlign:"center", height: 150, borderRadius: "100%", margin: "0 auto 0 auto"}} 
                                 alt="profile"
                             />
                         </div>
@@ -165,89 +166,18 @@ const SellerDetails = () => {
                         </div>
                         <p style={{fontSize: "12px",  textAlign:"center", fontWeight: 400, color: "#6A6D7C"}}>info@gmail.com</p>
                     </div>
-
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                        {
-                            newData.map((item, index)=>
-                            <div
-                                style={{
-                                    width: "171px",
-                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                    borderRadius: "20px",
-                                    padding: "18px"
-                                }}
-                            >
-                                <div 
-                                    style={{
-                                        width: "35px",
-                                        height: "35px",
-                                        background: "#E8E8E8",
-                                        borderRadius: "8px",
-                                        display: "flex", alignItems: "center", justifyContent: "center"
-                                    }}
-                                >
-                                    {item.icon}
-                                </div>
-                                <p style={{margin: "4px 0 8px 0", color: "#6A6D7C",  fontSize: "12px", fontWeight: 400}}>{item?.name}</p>
-                                <p style={{ fontSize: "16px", fontWeight: 500}}>$ {item?.balance}</p>
-                                <p style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "8px", fontWeight: 400, color: "#16C098"}}><AiOutlineStock size={16} />  {item?.trade}</p>
-                            </div>
-                            )
-                        }
-                        
-                    </div>
                 </div>
                 
                 {/* overall sales section  */}
                 <div style={{
-                    width: "100%",
+                    width: "70%",
                     height: "334px",
                     backgroundColor: "white",
                     padding: "12px",
                     borderRadius: "8px"
                 }}>
-                    <div style={{display : "flex", alignItems: "center", justifyContent : "space-between"}}>
-                        <p style={{marginBottom: "7px", color: '#6A6D7C', fontSize: "12px", fontWeight: 400}}>Overall Sales</p>
-                        <Dropdown menu={{ items, onClick }} >
-                            <p style={{
-                                cursor: "pointer", 
-                                color:'#717171', 
-                                border: "1px solid #E9E9E9",
-                                borderRadius: "4px",
-                                padding: "4px 12px"
-                            }} onClick={(e) => e.preventDefault()}
-                            >
-                                {year}
-                                <DownOutlined style={{paddingLeft: "18px"}} color='#717171' />
-                            </p>
-                        </Dropdown>
-                    </div>
-                    
-                    <div style={{display: "flex", alignItems:"center", gap: "20px"}}>
-                        <p style={{marginBottom: "7px", color: '#6A6D7C', fontSize: "24px", fontWeight: 700}}>$348,253.65</p>
-                        <p style={{marginBottom: "7px", color: '#2FD5C7', fontSize: "14px", fontWeight: 400, display: "flex", gap:"8px", alignItems: "center"}}><AiOutlineStock size={16} /> 13.02%</p>
-                    </div>
-
-                    <div style={{width: "100%", height: "100%"}}>
-                        <LineChart
-                            width={780}
-                            height={230}
-                            data={data}
-                            syncId="anyId"
-                            margin={{
-                            top: 10,
-                            right: 30,
-                            left: 0,
-                            bottom: 0,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3" />
-                            <XAxis dataKey="name" />
-                            <YAxis dataKey="amt" />
-                            <Tooltip />
-                            <Line type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
-                        </LineChart>
-                    </div>
+                    <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F", marginBottom: 10}}>Banner Products</h1>
+                    <BannerProducts/>
                 </div>
             </div>
 

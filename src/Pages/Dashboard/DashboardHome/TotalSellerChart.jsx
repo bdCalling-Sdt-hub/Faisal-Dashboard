@@ -173,7 +173,7 @@ const TotalSellerChart = () => {
     <div
     >
       <BarChart
-        width={495}
+        width={1050}
         height={132}
         data={data}
         style={{marginLeft:"-35px"}}
