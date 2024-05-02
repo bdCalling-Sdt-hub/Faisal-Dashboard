@@ -122,7 +122,7 @@ const SellerProductList = () => {
     const [filter, setFilter] = useState(false);
     const dropdownRef = useRef();
     const [toggle, setToggle] = useState(false);
-  const [toggleId, setToggleId] = useState();
+    const [toggleId, setToggleId] = useState();
 
 
   const columns = [

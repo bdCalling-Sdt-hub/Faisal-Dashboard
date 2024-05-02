@@ -1,5 +1,5 @@
 import { Input, Layout,  Badge, } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/logo.jpg";
 import LogoText from "../../assets/logo-text.jpg";
@@ -57,6 +57,20 @@ const Dashboard = () => {
       icon: <RiCopperDiamondLine size={24} />,
     }
   ];
+
+  const dropdownRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setDropdown(false);
+        }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+        document.removeEventListener('click', handleClickOutside);
+    };
+}, []);
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
@@ -158,7 +172,7 @@ const Dashboard = () => {
           ))}
 
           <li
-            onClick={()=>setDropdown(!dropdown)}
+            onClick={(e)=>(e.stopPropagation(), setDropdown(!dropdown))}
             style={{
               width: "100%",
               marginTop: 0,
@@ -173,7 +187,13 @@ const Dashboard = () => {
             }}
           >
             {
-              pathname === "/setting-change-password" || pathname === "/settings-profile"
+              pathname === "/setting-change-password" 
+              || 
+              pathname === "/settings-profile" 
+              || 
+              pathname === "/about-us"
+              || 
+              pathname === "/privacy-policy"
               ?
               <div style={{backgroundColor: "#2FD5C7", position: "absolute", left:0, top: 0, width: "8px", height: "38px", borderRadius: "0 10px 10px 0"}}></div>
               :
@@ -193,6 +213,7 @@ const Dashboard = () => {
               dropdown
               &&
               <div 
+                ref={dropdownRef}
                 style={{
                   position: "absolute", 
                   left: "80px", 
@@ -202,18 +223,22 @@ const Dashboard = () => {
                   borderRadius: "0 10px 10px 0"
                 }}
               >
-                  <Link to="/settings-profile" style={{color: pathname === "/settings-profile" ? "#2FD5C7" : '#6A6D7C'}}>
+                  <Link 
+                    to="/settings-profile" 
+                    style={{color: pathname === "/settings-profile" ? "#2FD5C7" : '#6A6D7C'}}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <p style={{marginBottom: '8px'}}>Profile</p>
                   </Link>
-                  <Link to="/setting-change-password" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
+                  <Link onClick={(e) => e.stopPropagation()} to="/setting-change-password" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
                     <p style={{marginBottom: '8px'}}>Change Password</p>
                   </Link>
 
-                  <Link to="/about-us" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
+                  <Link onClick={(e) => e.stopPropagation()} to="/about-us" style={{color: pathname === "/about-us" ? "#2FD5C7" : '#6A6D7C'}}>
                     <p style={{marginBottom: '8px'}}>About Us</p>
                   </Link>
 
-                  <Link to="/privacy-policy" style={{color: pathname === "/setting-change-password" ? "#2FD5C7" : '#6A6D7C'}}>
+                  <Link onClick={(e) => e.stopPropagation()} to="/privacy-policy" style={{color: pathname === "/privacy-policy" ? "#2FD5C7" : '#6A6D7C'}}>
                     <p>Privacy Policy</p>
                   </Link>
               </div>
