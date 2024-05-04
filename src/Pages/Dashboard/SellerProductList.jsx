@@ -12,7 +12,6 @@ const data = [
       name: "Iphone 14 pro max",
       price: "600",
       selling: "500",
-      status: "In Stock",
       status: "sold",
     },
     {
@@ -21,7 +20,6 @@ const data = [
       name: "Iphone 13 Mini",
       price: "600",
       selling: "500",
-      status: "In Stock",
       status: "unsold",
     },
     {
@@ -30,7 +28,6 @@ const data = [
       name: "Google Pixel 7",
       price: "600",
       selling: "500",
-      status: "Out of Stock",
       status: "sold",
     },
     {
@@ -39,7 +36,6 @@ const data = [
       name: "Google Pixel 7 Pro",
       price: "600",
       selling: "500",
-      status: "Out of Stock",
       status: "unsold",
     },
     {
@@ -48,7 +44,6 @@ const data = [
         name: "Iphone 14 pro max",
         price: "600",
         selling: "500",
-        status: "In Stock",
         status: "sold",
       },
       {
@@ -57,7 +52,6 @@ const data = [
         name: "Iphone 13 Mini",
         price: "600",
         selling: "500",
-        status: "Out of Stock",
         status: "sold",
     },
     {
@@ -98,7 +92,6 @@ const data = [
         name: "Google Pixel 7 Pro",
         price: "600",
         selling: "500",
-        status: "In Stock",
         status: "sold",
     },
     {
@@ -107,7 +100,6 @@ const data = [
         name: "Google Pixel 7",
         price: "600",
         selling: "500",
-        status: "In Stock",
         status: "sold",
     },
     {
@@ -116,7 +108,6 @@ const data = [
         name: "Google Pixel 7 Pro",
         price: "600",
         selling: "500",
-        status: "In Stock",
         status: "sold",
     }
 ];
