@@ -13,6 +13,7 @@ const data = [
       price: "600",
       selling: "500",
       status: "In Stock",
+      status: "sold",
     },
     {
       key: "2",
@@ -21,6 +22,7 @@ const data = [
       price: "600",
       selling: "500",
       status: "In Stock",
+      status: "unsold",
     },
     {
       key: "3",
@@ -29,6 +31,7 @@ const data = [
       price: "600",
       selling: "500",
       status: "Out of Stock",
+      status: "sold",
     },
     {
       key: "4",
@@ -37,6 +40,7 @@ const data = [
       price: "600",
       selling: "500",
       status: "Out of Stock",
+      status: "unsold",
     },
     {
         key: "5",
@@ -45,6 +49,7 @@ const data = [
         price: "600",
         selling: "500",
         status: "In Stock",
+        status: "sold",
       },
       {
         key: "6",
@@ -53,6 +58,7 @@ const data = [
         price: "600",
         selling: "500",
         status: "Out of Stock",
+        status: "sold",
     },
     {
         key: "7",
@@ -60,7 +66,7 @@ const data = [
         name: "Google Pixel 7",
         price: "600",
         selling: "500",
-        status: "In Stock",
+        status: "unsold",
     },
     {
         key: "8",
@@ -68,7 +74,7 @@ const data = [
         name: "Google Pixel 7 Pro",
         price: "600",
         selling: "500",
-        status: "In Stock",
+        status: "unsold",
     },
     {
         key: "9",
@@ -76,7 +82,7 @@ const data = [
         name: "Google Pixel 7",
         price: "600",
         selling: "500",
-        status: "In Stock",
+        status: "sold",
     },
     {
         key: "10",
@@ -84,7 +90,7 @@ const data = [
         name: "Google Pixel 7 Pro",
         price: "600",
         selling: "500",
-        status: "In Stock",
+        status: "unsold",
     },
     {
         key: "11",
@@ -93,6 +99,7 @@ const data = [
         price: "600",
         selling: "500",
         status: "In Stock",
+        status: "sold",
     },
     {
         key: "12",
@@ -101,6 +108,7 @@ const data = [
         price: "600",
         selling: "500",
         status: "In Stock",
+        status: "sold",
     },
     {
         key: "13",
@@ -109,6 +117,7 @@ const data = [
         price: "600",
         selling: "500",
         status: "In Stock",
+        status: "sold",
     }
 ];
   

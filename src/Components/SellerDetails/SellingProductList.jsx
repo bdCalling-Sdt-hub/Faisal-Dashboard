@@ -13,7 +13,7 @@ const data = [
     name: "Iphone 14 pro max",
     price: "600",
     selling: "500",
-    status: "istock",
+    status: "sold",
   },
   {
     key: "2",
@@ -21,7 +21,7 @@ const data = [
     name: "Iphone 13 Mini",
     price: "600",
     selling: "500",
-    status: "istock",
+    status: "unsold",
   },
   {
     key: "3",
@@ -29,7 +29,7 @@ const data = [
     name: "Google Pixel 7",
     price: "600",
     selling: "500",
-    status: "istock",
+    status: "sold",
   },
   {
     key: "4",
@@ -37,7 +37,7 @@ const data = [
     name: "Google Pixel 7 Pro",
     price: "600",
     selling: "500",
-    status: "Complete",
+    status: "unsold",
   }
 ];
 
@@ -88,7 +88,7 @@ const SellingProductList = () => {
       dataIndex: "sold",
       key: "sold",
       render: (_,record) => (
-        <p>{parseInt(record.key)+ 1}</p>
+        <p>{record.status}</p>
       ),
     },
     {

@@ -155,26 +155,13 @@ const TotalSellerChart = () => {
           </Dropdown>
     </div>
 
-    <div style={{display: "flex", alignItems: "center", gap: "31px", marginBottom: "19px"}}>
-          <div>
-            <p style={{fontSize: "12px", fontWeight: 400, color: "#808080"}}>Overly Growth</p>
-            <h1 style={{fontSize: "14px", fontWeight: 700, color: "#2F2F2F"}}>38.38%</h1>
-          </div>
-          <div>
-            <p style={{fontSize: "12px", fontWeight: 400, color: "#808080"}}>Monthly</p>
-            <h1 style={{fontSize: "14px", fontWeight: 700, color: "#2F2F2F"}}>15.5%</h1>
-          </div>
-          <div>
-            <p style={{fontSize: "12px", fontWeight: 400, color: "#808080"}}>Daily</p>
-            <h1 style={{fontSize: "14px", fontWeight: 700, color: "#2F2F2F"}}>58.50%</h1>
-          </div>
-    </div>
+    
 
     <div
     >
       <BarChart
         width={1050}
-        height={132}
+        height={215}
         data={data}
         style={{marginLeft:"-35px"}}
         padding={{
