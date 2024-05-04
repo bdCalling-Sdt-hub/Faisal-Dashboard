@@ -158,6 +158,14 @@ const SellerProductList = () => {
       ),
     },
     {
+        title: "Sold",
+        dataIndex: "sold",
+        key: "sold",
+        render: (_,record) => (
+          <p>{parseInt(record.key)+ 1}</p>
+        ),
+      },
+    {
       title: "Action",
       dataIndex: "action",
       key: "action",
