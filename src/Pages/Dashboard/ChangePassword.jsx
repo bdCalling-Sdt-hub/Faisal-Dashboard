@@ -1,26 +1,62 @@
 import React, { useState } from 'react'
 import BackButton from "../../Pages/Dashboard/BackButton"
 import { Button, Form, Input } from 'antd'
+import { useDispatch } from 'react-redux';
+import { changePassword } from "../../redux/apiSlice/Authentication/changePasswordSlice"
+import Swal from 'sweetalert2';
 
 const ChangePassword = () => {
     const [newPassError, setNewPassError] = useState("");
     const [conPassError, setConPassError] = useState("");
-    const [curPassError, setCurPassError] = useState("");
 
-    const handleChangePassword=(values)=>{
-        console.log(values)
-        if(values?.current_password === values.new_password){
-            setNewPassError("The New password is semilar with old Password");
-        }else{
-            setNewPassError("")
+    const dispatch = useDispatch();
+
+
+    const validatePasswordChange = (values) => {
+        let errors = {};
+    
+        if (values?.currentPass === values.newPass) {
+            errors.newPassError = "The New password is similar to the old Password";
+            setNewPassError(errors.newPassError);
+        } else {
+            setNewPassError("");
         }
-          
-        if(values?.new_password !== values.confirm_password){
-            setConPassError("New Password and Confirm Password Doesn't Matched");
-        }else{
-            setConPassError("")
+    
+        if (values?.newPass !== values.confirmPass) {
+            errors.conPassError = "New Password and Confirm Password Don't Match";
+            setConPassError(errors.conPassError);
+        } else {
+            setConPassError("");
         }
-    }
+    
+        return errors;
+    };
+
+    const handleChangePassword = (values) => {
+        let errors = validatePasswordChange(values);
+    
+        if (Object.keys(errors).length === 0) {
+            dispatch(changePassword(values)).then((response) => {
+                if (response?.type === "changePassword/fulfilled") {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Password Updated Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: response?.payload,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+        }
+    };
 
     const handleReset=()=>{
         window.location.reload()
@@ -46,7 +82,7 @@ const ChangePassword = () => {
                         <label style={{display: "block", marginBottom: "5px" }}>Current Password</label>
                         <Form.Item
                             style={{marginBottom: 0}}
-                            name="current_password"
+                            name="currentPass"
                             rules={[
                                 {
                                 required: true,
@@ -66,13 +102,12 @@ const ChangePassword = () => {
                                 }}
                             />
                         </Form.Item>
-                        { curPassError && <label style={{display: "block", color: "red"}} htmlFor="error">{curPassError}</label>}
                     </div>
     
                     <div style={{marginBottom: "20px"}}>
                         <label style={{display: "block", marginBottom: "5px" }} htmlFor="">New Password</label>
                         <Form.Item
-                            name="new_password"
+                            name="newPass"
                             rules={[
                                 {
                                 required: true,
@@ -100,7 +135,7 @@ const ChangePassword = () => {
                         <label style={{display: "block", marginBottom: "5px" }} htmlFor="email">Re-Type Password</label>
                         <Form.Item
                             style={{marginBottom: 0}}
-                            name="confirm_password"
+                            name="confirmPass"
                             rules={[
                                 {
                                 required: true,

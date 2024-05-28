@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
+import { message } from "antd";
 
 
 const initialState = {
@@ -8,13 +9,19 @@ const initialState = {
     loading: false
   };
 
-export const resetPassword = createAsyncThunk(
+export const changePassword = createAsyncThunk(
     'changePassword',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/reset-pass`, value);
+            const response = await baseURL.post(`/auth/change-password`, {...value}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
             return response?.data?.message;
         }catch(error){
+            console.log(error)
             return thunkApi.rejectWithValue(error?.response?.data?.message);
         }
         
@@ -23,20 +30,20 @@ export const resetPassword = createAsyncThunk(
 
 
 
-export const resetPasswordSlice = createSlice({
+export const changePasswordSlice = createSlice({
     name: 'changePassword',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(resetPassword.pending, (state)=> {
+        builder.addCase(changePassword.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+        builder.addCase(changePassword.fulfilled, (state, action)=> {
             state.error= false;
             state.success= true;
             state.loading= false;
         }),
-        builder.addCase(resetPassword.rejected, (state)=> {
+        builder.addCase(changePassword.rejected, (state, action)=> {
             state.error= true,
             state.success= false,
             state.loading= false
@@ -44,4 +51,4 @@ export const resetPasswordSlice = createSlice({
     }
 });
 
-export default resetPasswordSlice.reducer
+export default changePasswordSlice.reducer
