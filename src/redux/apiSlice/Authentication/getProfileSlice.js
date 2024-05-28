@@ -12,13 +12,13 @@ export const getProfile = createAsyncThunk(
     'getProfile',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.get(`/profile`, {
+            const response = await baseURL.get(`/auth/loggeduser`, {
                 headers: {
                   "Content-Type": "application/json",
                   authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
-            return response?.data?.user;
+            return response?.data?.data;
         }catch(error){
             return thunkApi.rejectWithValue(error?.message);
         }

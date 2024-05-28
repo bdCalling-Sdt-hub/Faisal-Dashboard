@@ -1,35 +1,67 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BackButton from './BackButton'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Spin } from 'antd';
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import Swal from 'sweetalert2';
+import { getProfile } from "../../redux/apiSlice/Authentication/getProfileSlice";
+import { editProfile } from "../../redux/apiSlice/Authentication/editProfileSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { ImageConfig } from '../../../Config';
 
 const Profile = () => {
-    const [image, setImage] = useState("https://avatars.design/wp-content/uploads/2021/02/corporate-avatars-TN-1.jpg");
-    const [imgURL, setImgURL] = useState(image);
+    const [image, setImage] = useState();
+    const dispatch = useDispatch();
+    const { profile } = useSelector(state => state.profile);
+    const [imgURL, setImgURL] = useState();
+    const [form] = Form.useForm();
+
+    useEffect(()=>{
+        dispatch(getProfile())
+    }, [dispatch])
+
+
+    useEffect(()=>{
+        if (profile) {
+            form.setFieldsValue(profile);
+            setImgURL(profile?.image?.startsWith("https") ? profile?.image : `${ImageConfig}/${profile?.image}`)
+        }
+    }, [profile, form]);
+
+
     const handleSubmit=(values)=>{
-        console.log(values)
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Updated Successfully",
-            showConfirmButton: false,
-            timer: 1500
+        const formData = new FormData();
+
+        Object.keys(values).forEach((key) => {
+            formData.append(key, values[key]);
+        });
+        formData.append("image", image);
+
+        dispatch(editProfile(formData))
+        .then((response)=>{
+            if(response?.type === "editProfile/fulfilled"){
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Profile Updated Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((response)=>{
+                    dispatch(getProfile())
+                })
+            }
         });
     }
+
     const handleReset=()=>{
-        window.location.reload()
+        form.resetFields();
     }
+
+
     const onChange = (e) => {
         const file= e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
         setImgURL(imgUrl);
         setImage(file)
-    };
-    const initialFormValues = {
-        fullName: "Nadir Hossain",
-        email: "nadirhossain336@gmail.com",
-        mobile_number: "01756953936"
     };
 
     return (
@@ -49,7 +81,7 @@ const Profile = () => {
                         borderRadius: "18px", 
                         border: "1px dashed #4C535F", 
                         background: "white",
-                        backgroundImage: `url(${imgURL})`, 
+                        backgroundImage: `url(${ imgURL})`, 
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         
@@ -78,7 +110,7 @@ const Profile = () => {
                 <Form
                     name="normal_login"
                     className="login-form"
-                    initialValues={initialFormValues}
+                    form={form}
                     style={{width: "543px", height: "fit-content"}}
                     onFinish={handleSubmit}
                 >
@@ -127,7 +159,7 @@ const Profile = () => {
                         <label style={{display: "block", marginBottom: "5px" }} htmlFor="email">Phone Number</label>
                         <Form.Item
                             style={{marginBottom: 0}}
-                            name="mobile_number"
+                            name="mobileNumber"
                         >
                             <Input
                                 type="text"

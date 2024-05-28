@@ -13,9 +13,9 @@ export const editProfile = createAsyncThunk(
     'editProfile',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/profile/edit/1?_method=PUT`, value, {
+            const response = await baseURL.put(`/auth/profile-update`, value, {
                 headers: {
-                  "Content-Type": "application/json",
+                  "Content-Type": "multipart/form-data",
                   authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
