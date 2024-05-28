@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseURL from "../../../Config";
+import { baseURL } from "../../../../Config";
 
 
 const initialState = {
@@ -10,11 +10,11 @@ const initialState = {
   };
 
 
-export const forgetPassword = createAsyncThunk(
+export const forgotPassword = createAsyncThunk(
     'forgotPassword',
     async (email, thunkApi) => {
         try{
-            const response = await baseURL.post(`/forgot-pass`, email);
+            const response = await baseURL.post(`/auth/forgot-password`, email);
             return response?.data?.message;
         }catch(error){
             return thunkApi.rejectWithValue(error?.message);
@@ -25,21 +25,21 @@ export const forgetPassword = createAsyncThunk(
 
 
 
-export const forgetPasswordSlice = createSlice({
+export const forgotPasswordSlice = createSlice({
     name: 'forgotPassword',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(forgetPassword.pending, (state)=> {
+        builder.addCase(forgotPassword.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(forgetPassword.fulfilled, (state, action)=> {
+        builder.addCase(forgotPassword.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
             state.message= action.payload
         }),
-        builder.addCase(forgetPassword.rejected, (state)=> {
+        builder.addCase(forgotPassword.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
@@ -48,4 +48,4 @@ export const forgetPasswordSlice = createSlice({
     }
 });
 
-export default forgetPasswordSlice.reducer
+export default forgotPasswordSlice.reducer

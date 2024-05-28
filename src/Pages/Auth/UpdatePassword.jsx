@@ -1,28 +1,48 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { resetPassword } from "../../redux/apiSlice/Authentication/resetPasswordSlice";
+import { useDispatch } from "react-redux";
 
 const UpdatePassword = () => {
   const navigate = useNavigate();
-  const [newPassError, setNewPassError] = useState("");
-  const [conPassError, setConPassError] = useState("");
-  const [curPassError, setCurPassError] = useState("");
+  const dispatch = useDispatch();
   const [err, setErr] = useState("");
+  const { email } = useParams()
+
+
   const onFinish = (values) => {
-    const { password, confirmPassword } = values;
-    Swal.fire({
-      title: "Successfully",
-      text: "Your password has been updated, please change your password regularly to avoid this happening",
-      showDenyButton: false,
-      showCancelButton: false,
-      confirmButtonText: "Confirm",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/")
+    if(values.password !== values.confirmPassword){
+      return setErr("Password Doesn't Match")
+    }else{
+      setErr("")
+    }
+
+    dispatch(resetPassword({...values, email: email}))
+    .then((response)=>{
+      if(response?.type === "resetPassword/fulfilled"){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        }).then((response)=>{
+          navigate(`/login`)
+        }) 
+      }else{
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     });
   };
+  
 
   return (
     <div
@@ -53,11 +73,11 @@ const UpdatePassword = () => {
         <div style={{margin: "45px 0 20px 0"}}>
             <label style={{display: "block", color:"#6A6D7C", marginBottom: "5px" }} htmlFor="">New Password</label>
             <Form.Item
-                name="new_password"
+                name="password"
                 rules={[
                     {
                     required: true,
-                    message: "Please input your new Password!",
+                    message: "Please input your New Password!",
                     },
                 ]}
                 style={{marginBottom: 0}}
@@ -74,14 +94,13 @@ const UpdatePassword = () => {
                     }}
                 />
             </Form.Item>
-            { newPassError && <label style={{display: "block", color: "red"}} htmlFor="error">{newPassError}</label>}
         </div>
     
         <div style={{marginBottom: "40px"}}>
             <label style={{display: "block", color:"#6A6D7C", marginBottom: "5px" }} htmlFor="email">Confirm Password</label>
             <Form.Item
                 style={{marginBottom: 0}}
-                name="confirm_password"
+                name="confirmPassword"
                 rules={[
                     {
                     required: true,
@@ -101,7 +120,7 @@ const UpdatePassword = () => {
                     }}
                 />
             </Form.Item>
-            { conPassError && <label style={{display: "block", color: "red"}} htmlFor="error">{conPassError}</label>}
+            { err && <label style={{display: "block", color: "red"}} htmlFor="error">{err}</label>}
         </div>
 
         <Form.Item>

@@ -1,22 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseURL } from "../../../../Config";
-
-
+import {baseURL} from "../../../../Config";
 
 const initialState = {
     error: false,
     success: false,
     loading: false
-  };
+};
 
-export const emailVerification = createAsyncThunk(
+export const otpVerify = createAsyncThunk(
     'otpVerify',
     async (value, thunkApi) => {
+        console.log(value)
         try{
-            const response = await baseURL.post(`/email-verified`);
-            return response?.data;
+            const response = await baseURL.post(`/auth/verify-email`, {...value});
+            return response?.data?.message;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.message);
+            return thunkApi.rejectWithValue(error?.response?.data?.message);
         }
         
     }
@@ -24,25 +23,25 @@ export const emailVerification = createAsyncThunk(
 
 
 
-export const emailVerificationSlice = createSlice({
+export const otpVerifySlice = createSlice({
     name: 'otpVerify',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(emailVerification.pending, (state)=> {
+        builder.addCase(otpVerify.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(emailVerification.fulfilled, (state, action)=> {
+        builder.addCase(otpVerify.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
         }),
-        builder.addCase(emailVerification.rejected, (state)=> {
+        builder.addCase(otpVerify.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
         })
     }
-});
+})
 
-export default emailVerificationSlice.reducer
+export default otpVerifySlice.reducer

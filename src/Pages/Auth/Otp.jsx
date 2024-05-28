@@ -1,28 +1,43 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import OTPInput from "react-otp-input";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { forgotPassword } from "../../redux/apiSlice/Authentication/forgotPasswordSlice";
+import { otpVerify } from "../../redux/apiSlice/Authentication/otpVerifySlice";
 
 const Otp = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
-  const [err, setErr] = useState("");
+  const { email } = useParams();
 
   const handleResendEmail = () => {
-    const email = JSON.parse(localStorage.getItem("email"));
+    dispatch(forgotPassword(email))
 
   };
   const handleVerifyOtp=()=>{
-    Swal.fire({
-      title: "Password Reset",
-      text: "Your password has been successfully reset. click confirm to set a new password",
-      showDenyButton: false,
-      showCancelButton: false,
-      confirmButtonText: "Confirm",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/update-password")
+    dispatch(otpVerify({emailVerifyCode: otp, email: email}))
+    .then((response)=>{
+      if(response?.type === "otpVerify/fulfilled"){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        }).then((response)=>{
+          navigate(`/update-password/${email}`)
+        }) 
+      }else{
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     });
   }
@@ -48,7 +63,7 @@ const Otp = () => {
           <OTPInput
             value={otp}
             onChange={setOtp}
-            numInputs={6}
+            numInputs={4}
             inputStyle={{
               height: "44px",
               width: "44px",

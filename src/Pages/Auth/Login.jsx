@@ -1,13 +1,39 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { login } from "../../redux/apiSlice/Authentication/loginSlice";
+import Swal from "sweetalert2";
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  };
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  const onFinish = (values) => {
+    dispatch(login(values))
+    .then((response)=>{
+      if(response?.type === "login/fulfilled"){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged in Successfully",
+          showConfirmButton: false,
+          timer: 1500
+        }).then((response)=>{
+          navigate("/")
+        }) 
+      }else{
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
+  };
 
   return (
     <div 

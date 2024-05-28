@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseURL from "../../../../Config";
+import {baseURL} from "../../../../Config";
 
 const initialState = {
     error: false,
