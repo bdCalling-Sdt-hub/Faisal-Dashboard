@@ -6,6 +6,8 @@ import resetPasswordSlice from './apiSlice/Authentication/resetPasswordSlice';
 import changePasswordSlice from './apiSlice/Authentication/changePasswordSlice';
 import editProfileSlice from './apiSlice/Authentication/editProfileSlice';
 import getProfileSlice from './apiSlice/Authentication/getProfileSlice';
+import getAboutSlice from './apiSlice/AboutUs/getAboutSlice';
+import updateAboutSlice from './apiSlice/AboutUs/updateAboutSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +18,10 @@ export const store = configureStore({
     resetPassword: resetPasswordSlice,
     changePassword: changePasswordSlice,
     editProfile : editProfileSlice,
-    profile: getProfileSlice
+    profile: getProfileSlice,
+
+    // about us
+    aboutUs: getAboutSlice,
+    updateAboutUs : updateAboutSlice,
   },
 })

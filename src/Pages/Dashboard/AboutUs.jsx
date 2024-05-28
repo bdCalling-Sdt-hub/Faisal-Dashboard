@@ -1,11 +1,15 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import BackButton from './BackButton';
 import JoditEditor from 'jodit-react';
 import { Button } from 'antd';
 import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAbout } from "../../redux/apiSlice/AboutUs/getAboutSlice";
+import { updateAbout } from "../../redux/apiSlice/AboutUs/updateAboutSlice";
 
 const AboutUs = () => {
-    const [data, setData] = useState()
+    const dispatch = useDispatch();
+    const { about } = useSelector(state => state.aboutUs);
     const editor = useRef(null)
     const [content, setContent] = useState('');
     const [refresh, setRefresh] = useState('')
@@ -16,14 +20,38 @@ const AboutUs = () => {
         },[1500])
     }
 
+    useEffect(()=>{
+        setContent(about?.aboutUs)
+    }, [about])
+
+    useEffect(()=>{
+        dispatch(getAbout());
+    }, [dispatch])
+
+
+
     const handleUpdate=()=>{
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Updated Successfully",
-            showConfirmButton: false,
-            timer: 1500
-        });
+        dispatch(updateAbout({aboutUs: content})).then((response)=>{
+            if(response?.type === "updateAbout/fulfilled"){
+                dispatch(getAbout());
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Updated Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }else{
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Something went Wrong",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+        
     }
     return (
         <div>
@@ -45,7 +73,7 @@ const AboutUs = () => {
                         ref={editor}
                         value={content}
                         onChange={newContent => { setContent(newContent) }}
-                        config={{ height: '500px' }}
+                        
                     />
                     <Button 
                         onClick={handleUpdate} 
