@@ -8,6 +8,8 @@ import editProfileSlice from './apiSlice/Authentication/editProfileSlice';
 import getProfileSlice from './apiSlice/Authentication/getProfileSlice';
 import getAboutSlice from './apiSlice/AboutUs/getAboutSlice';
 import updateAboutSlice from './apiSlice/AboutUs/updateAboutSlice';
+import getPrivacyPolicySlice from './apiSlice/PrivacyPolicy/getPrivacyPolicySlice';
+import updatePrivacyPolicySlice from './apiSlice/PrivacyPolicy/updatePrivacyPolicySlice';
 
 export const store = configureStore({
   reducer: {
@@ -23,5 +25,11 @@ export const store = configureStore({
     // about us
     aboutUs: getAboutSlice,
     updateAboutUs : updateAboutSlice,
+
+    // privacy and policy
+    getPrivacy : getPrivacyPolicySlice,
+    updatePrivacy : updatePrivacyPolicySlice,
+
+    
   },
 })

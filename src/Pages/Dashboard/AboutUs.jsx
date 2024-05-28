@@ -53,6 +53,8 @@ const AboutUs = () => {
         })
         
     }
+
+    
     return (
         <div>
             <div style={{marginBottom: "15px"}}>
