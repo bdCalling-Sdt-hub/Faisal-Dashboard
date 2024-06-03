@@ -1,66 +1,25 @@
 import { Form, Input, Modal, Table, Button } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdOutlineDelete } from 'react-icons/md';
 import BackButton from './BackButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdmins } from "../../redux/apiSlice/Admin/getAdminListSlice";
+import { makeAdmin } from "../../redux/apiSlice/Admin/makeAdminSlice";
+import { deleteAdmin } from "../../redux/apiSlice/Admin/deleteAdminSlice";
+import Swal from 'sweetalert2';
 
-
-const data = [
-    {
-        key: "1",
-        fullName: "Tushar",
-        email: "tushar@gmail.com",
-        userType: "ADMIN",
-    },
-    {
-        key: "2",
-        fullName: "Rahman",
-        email: "rahman@gmail.com",
-        userType: "ADMIN",
-    },
-    {
-        key: "3",
-        fullName: "Rafsan",
-        email: "rafsan@gmail.com",
-        userType: "ADMIN",
-    },
-    {
-        key: "4",
-        fullName: "jusef",
-        email: "jusef@gmail.com",
-        userType: "ADMIN",
-    },
-    {
-        key: "5",
-        fullName: "Asad",
-        email: "asad@gmail.com",
-        userType: "ADMIN",
-    },
-    {
-        key: "6",
-        fullName: "Fahim",
-        email: "fahim@gmail.com",
-        userType: "ADMIN",
-    },
-    {
-        key: "7",
-        fullName: "Nadir",
-        email: "nadir@gmail.com",
-        userType: "ADMIN",
-    }
-  ];
   
 const MakeAdmin = () => {
     const [openAddModel, setOpenAddModel] = useState(false);
-    const [reFresh, setReFresh] = useState("");
+    const dispatch = useDispatch();
+    const { admins } = useSelector(state => state.getAdmins);
+    
+    useEffect(()=>{ dispatch(getAdmins()) }, [dispatch])
 
-    if(reFresh){
-        setTimeout(()=>{
-            setReFresh("")
-        }, 1500)
-    }
+    
 
-    const handleDelete=async(value)=>{
-        /* Swal.fire({
+    const handleDelete=async(id)=>{
+        Swal.fire({
             title: "Are you sure to delete this User?",
             icon: "warning",
             showCancelButton: true,
@@ -70,30 +29,27 @@ const MakeAdmin = () => {
             confirmButtonText: "Yes",
         }).then(async(result) => {
             if (result.isConfirmed) {
-                const response = await baseURL.get(`/delete-admin/${value?.id}`,
-                    {
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem('token')}`
-                        }
+                dispatch(deleteAdmin(id)).then((response)=>{
+                    if(response.type === "deleteAdmin/fulfilled"){
+                        Swal.fire({
+                            position: "center",
+                            title: "Deleted!",
+                            text: "User Deleted Successfully",
+                            icon: "success",
+                            timer: 1500,
+                            showConfirmButton: false,
+                        }).then(()=>{
+                            dispatch(getAdmins());
+                        })
                     }
-                )
-                if(response.status === 200){
-                    Swal.fire({
-                        position: "center",
-                        title: "Deleted!",
-                        text: "User Deleted Successfully",
-                        icon: "success",
-                        timer: 1500,
-                        showConfirmButton: false,
-                    }).then(()=>{
-                        dispatch(AllAdmin());
-                    })
-                }
+                });
                         
             }
-        });  */
+        }); 
 
     }
+
+
     const columns = [
         {
           title: 'Full Name',
@@ -115,10 +71,41 @@ const MakeAdmin = () => {
           title: 'Action',
           key: 'action',
           render: (_, record) => (
-            <MdOutlineDelete onClick={()=>handleDelete(record)} className='cursor-pointer' size={25} color='red'/>
+            <MdOutlineDelete onClick={()=>handleDelete(record._id)} className='cursor-pointer' size={25} color='red'/>
           ),
         },
     ];
+
+    const handleSubmit=(values)=>{
+        dispatch(makeAdmin({...values, termAndCondition: true}))
+        .then((response)=>{
+            console.log(response)
+            if(response?.type === "admins/fulfilled"){
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Admin Created Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((response)=>{
+                    dispatch(getAdmins())
+                    setOpenAddModel(false)
+                })
+            }else{
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: response?.payload,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        });
+
+    }
+
+
+
     return (
         <div >
             <div style={{margin: "24px 0"}}>
@@ -141,7 +128,7 @@ const MakeAdmin = () => {
                     </button>
                 </div>
             </div>
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table columns={columns} dataSource={admins} pagination={false} />
 
             <Modal
                 centered
@@ -154,9 +141,9 @@ const MakeAdmin = () => {
                     <h1 style={{marginBottom: "12px"}}>Make Admin</h1>
                     <Form
                         name="normal_login"
-                        initialValues={{
-                            remember: true,
-                        }}
+                        initialValues={{role:"ADMIN"}}
+
+                        onFinish={handleSubmit}
                     >
                         <div style={{marginBottom: "16px"}}>
                             <label style={{display: "block", marginBottom: "5px" }}>Full Name</label>
@@ -236,11 +223,78 @@ const MakeAdmin = () => {
                             </Form.Item>
                         </div>
 
+
+                        <div style={{marginBottom: "16px"}}>
+                            <label style={{display: "block", marginBottom: "5px" }} htmlFor="password">Confirm Password</label>
+                            <Form.Item
+                                style={{marginBottom: 0}}
+                                name="confirmPass"
+                                rules={[
+                                    {
+                                    required: true,
+                                    message: "Please input admin Confirm Password!",
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    type="password"
+                                    placeholder="Enter User Confirm password"
+                                    style={{
+                                    border: "1px solid #E0E4EC",
+                                    height: "52px",
+                                    background: "white",
+                                    borderRadius: "8px",
+                                    outline: "none",
+                                    }}
+                                />
+                            </Form.Item>
+                        </div>
+
+                        <div style={{marginBottom: "16px"}}>
+                            <label style={{display: "block", marginBottom: "5px" }} htmlFor="password">Admin Mobile Number</label>
+                            <Form.Item
+                                style={{marginBottom: 0}}
+                                name="mobileNumber"
+                            >
+                                <Input
+                                    type="Text"
+                                    placeholder="Enter Admin Mobile Number"
+                                    style={{
+                                        border: "1px solid #E0E4EC",
+                                        height: "52px",
+                                        background: "white",
+                                        borderRadius: "8px",
+                                        outline: "none",
+                                    }}
+                                />
+                            </Form.Item>
+                        </div>
+                        
+                        <div style={{marginBottom: "16px"}}>
+                            <label style={{display: "block", marginBottom: "5px" }} htmlFor="password">Location </label>
+                            <Form.Item
+                                style={{marginBottom: 0}}
+                                name="location"
+                            >
+                                <Input
+                                    type="Text"
+                                    placeholder="Enter Admin Location"
+                                    style={{
+                                        border: "1px solid #E0E4EC",
+                                        height: "52px",
+                                        background: "white",
+                                        borderRadius: "8px",
+                                        outline: "none",
+                                    }}
+                                />
+                            </Form.Item>
+                        </div>
+
                         <div style={{marginBottom: "16px"}}>
                             <label style={{display: "block", marginBottom: "5px" }} htmlFor="password">User Type</label>
                             <Form.Item
                                 style={{marginBottom: 0}}
-                                name="userType"
+                                name="role"
                             >
                                 <Input
                                     type="Text"
@@ -252,7 +306,6 @@ const MakeAdmin = () => {
                                         borderRadius: "8px",
                                         outline: "none",
                                     }}
-                                    defaultValue="ADMIN"
                                     readOnly
                                 />
                             </Form.Item>

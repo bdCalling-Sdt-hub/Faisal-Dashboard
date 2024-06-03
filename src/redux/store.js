@@ -10,6 +10,15 @@ import getAboutSlice from './apiSlice/AboutUs/getAboutSlice';
 import updateAboutSlice from './apiSlice/AboutUs/updateAboutSlice';
 import getPrivacyPolicySlice from './apiSlice/PrivacyPolicy/getPrivacyPolicySlice';
 import updatePrivacyPolicySlice from './apiSlice/PrivacyPolicy/updatePrivacyPolicySlice';
+import getCategoryListSlice from './apiSlice/Category/getCategoryListSlice';
+import getAdminListSlice from './apiSlice/Admin/getAdminListSlice';
+import makeAdminSlice from './apiSlice/Admin/makeAdminSlice';
+import deleteCategorySlice from './apiSlice/Category/deleteCategorySlice';
+import getSellerListSlice from './apiSlice/Home/getSellerListSlice';
+import topSellerSlice from './apiSlice/Home/topSellerSlice';
+import blockSellerSlice from './apiSlice/Home/blockSellerSlice';
+import getSummarySlice from './apiSlice/Home/getSummarySlice';
+import getSellerChartSlice from './apiSlice/Home/gerSellerChartSlice';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +30,8 @@ export const store = configureStore({
     changePassword: changePasswordSlice,
     editProfile : editProfileSlice,
     profile: getProfileSlice,
+    getAdmins: getAdminListSlice,
+    makeAdmin: makeAdminSlice,
 
     // about us
     aboutUs: getAboutSlice,
@@ -29,6 +40,17 @@ export const store = configureStore({
     // privacy and policy
     getPrivacy : getPrivacyPolicySlice,
     updatePrivacy : updatePrivacyPolicySlice,
+
+    // categories
+    getCategory: getCategoryListSlice,
+    deleteCategory: deleteCategorySlice,
+
+    // seller list
+    getSellerList : getSellerListSlice,
+    getTopSeller: topSellerSlice,
+    blockSeller: blockSellerSlice,
+    getSummaryData: getSummarySlice,
+    getSellerChart: getSellerChartSlice,
 
     
   },

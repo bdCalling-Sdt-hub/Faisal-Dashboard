@@ -1,61 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BackButton from './BackButton';
-import { Button, Modal, Upload, ColorPicker,Table } from 'antd'
+import { Button, Modal, Upload, ColorPicker,Table, Spin } from 'antd'
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { CiCamera } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategory } from "../../redux/apiSlice/Category/getCategoryListSlice";
+import { deleteCategory } from "../../redux/apiSlice/Category/deleteCategorySlice";
+import Swal from 'sweetalert2';
 
 
 const Category = () => {
     const [open, setOpen] = useState(false);
+    const { categories } = useSelector(state => state.getCategory);
+    const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        dispatch(getCategory())
+    }, [dispatch]);
 
-    const data = [
-        {
-            id: 1,
-            name: "Aesthetics",
-            someExtraField: {
-                Animation: "Cake Design",
-                Conditions: ["Used", "New", "Modify"]
+
+    const handleDelete=(id)=>{
+        Swal.fire({
+            title: "Are you sure to delete this Category?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            showCancelButton: "No",
+            confirmButtonText: "Yes",
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteCategory(id)).then((response)=>{
+                    if(response?.type === "deleteCategory/fulfilled"){
+                        Swal.fire({
+                            position: "center",
+                            title: "Deleted!",
+                            text: response?.payload,
+                            icon: "success",
+                            timer: 1500,
+                            showConfirmButton: false,
+                        }).then(()=>{
+                            dispatch(AllAdmin());
+                        })
+                    }
+                })
+                        
             }
-        },
+        });
+    }
 
-        {
-            id: 2,
-            name: "Cuisine and Pastry",
-            extraField:["Cake Design", "Services Category","Cooking Classes"]
-        },
-
-        {
-            id: 3,
-            name: "Decorations & Themes",
-            extraField:["Cake Design", "Services Category","Cooking Classes"]
-        },
-
-        {
-            id: 4,
-            name: "Fashion",
-            extraField:["Cake Design", "Services Category","Cooking Classes"]
-        },
-
-        {
-            id: 5,
-            name: "Entertainment",
-            extraField:["Cake Design", "Services Category","Cooking Classes"]
-        }
-    ]
 
     const columns = [
         {
             title: 'Serial No.',
             dataIndex: 'id',
-            key: "id"
+            key: "id",
+            render: ( _, record, index ) => (
+                <p>{index + 1}</p>
+            )
           
         },
         {
             title: 'Category Name',
-            dataIndex: 'name',
-            key: "name",
+            dataIndex: 'categoryName',
+            key: "categoryName",
         },
         {
             title: 'ACTIONS',
@@ -68,7 +78,7 @@ const Category = () => {
                     gap: "20px"                    
                 }}>
                     <FaRegEdit style={{cursor: "pointer"}} size={22} />
-                    <MdDelete style={{cursor: "pointer"}} size={22} />
+                    <MdDelete onClick={()=>handleDelete(record._id)} style={{cursor: "pointer"}} size={22} />
                 </div>
             )
         }
@@ -98,7 +108,7 @@ const Category = () => {
                 </Link>
             </div>
 
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table columns={columns} dataSource={categories} pagination={false} />
             
 
             <Modal
@@ -110,7 +120,6 @@ const Category = () => {
                 footer={false}
             >
                 <div style={{marginTop: 12}}>
-
                     <div>
 
                         <div>

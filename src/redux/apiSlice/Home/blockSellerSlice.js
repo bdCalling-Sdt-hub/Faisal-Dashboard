@@ -8,20 +8,20 @@ const initialState = {
     loading: false,
   };
 
-export const resetPassword = createAsyncThunk(
-    'resetPassword',
-    async (value, thunkApi) => {
+export const getBlockSeller = createAsyncThunk(
+    'blockSeller',
+    async (id, thunkApi) => {
         try{
-            const response = await baseURL.post(`/auth/reset-password`, {...value}, {
+            const response = await baseURL.patch(`/auth/block-account/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
             console.log(response)
-            return response?.data?.message;
+            return response?.data;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.response?.data?.message);
+            return thunkApi.rejectWithValue(error?.message);
         }
         
     }
@@ -29,20 +29,20 @@ export const resetPassword = createAsyncThunk(
 
 
 
-export const resetPasswordSlice = createSlice({
-    name: 'resetPassword',
+export const blockSellerSlice = createSlice({
+    name: 'blockSeller',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(resetPassword.pending, (state)=> {
+        builder.addCase(getBlockSeller.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+        builder.addCase(getBlockSeller.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
         }),
-        builder.addCase(resetPassword.rejected, (state)=> {
+        builder.addCase(getBlockSeller.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
@@ -50,4 +50,4 @@ export const resetPasswordSlice = createSlice({
     }
 });
 
-export default resetPasswordSlice.reducer
+export default blockSellerSlice.reducer

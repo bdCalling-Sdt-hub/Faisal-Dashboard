@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import "./DashboardHome.css";
 import TotalSellerListTable from "../../../Components/Dashboard/TotalSellerListTable";
 import TotalSellerChart from "./TotalSellerChart";
@@ -10,44 +10,44 @@ import { LuBox } from "react-icons/lu";
 import { TbDatabaseDollar } from "react-icons/tb";
 import UserCard from "./UserCard";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {getSummary} from "../../../redux/apiSlice/Home/getSummarySlice"
 
 function DashboardHome() {
-  const onChange = (pageNumber) => {
-    console.log("Page: ", pageNumber);
-  };
+  const dispatch = useDispatch();
+  const {summary} = useSelector(state=> state.getSummaryData);
+
+  useEffect(()=>{
+    dispatch(getSummary());
+  }, [dispatch])
+
 
   const data = [
     {
       name: "New Seller",
-      count: "220",
+      count: summary?.newSeller,
       icon: <HiUserGroup color="#00B2DC" size={32} />,
       bgColor: "#E2F7FC"
     },
     {
       name: "Active Seller",
-      count: "320",
+      count: summary?.totalActiveSellerCount,
       icon: <FaUserPlus color="#F98002" size={32}/>,
       bgColor: "#FFE3C7"
     },
     {
       name: "Total Seller",
-      count: "120",
+      count: summary?.totalSellerCount,
       icon: <LuBox  color="#FEC53D" size={32}/>,
       bgColor: "#FFF3D6"
-    },/* 
-    {
-      name: "Total Profit",
-      count: "1000",
-      icon: <TbDatabaseDollar color="#5664FD" size={32} />,
-      bgColor: "#DDE0FF"
-    }, */
+    }
   ]
 
   return (
     <div>
       <Row gutter={26}>
         {
-          data.map((item, index)=>
+          data?.map((item, index)=>
             <Col key={index}  xs={{span:24}} sm={{span:24}} md={{span:12}} lg={{span:8}}>
               <div  className='income-card'>
                   <div 
@@ -88,9 +88,6 @@ function DashboardHome() {
       </Row>
 
       <div style={{ marginTop: "20px", marginBottom: "15px", display: "flex" , gap: "20px" }} >
-            {/* <div  style={{ width: '500px', height: "276px", borderRadius:"15px", padding:"20px",backgroundColor:"#fff"}}>
-              <DailyOverviewChart />
-            </div> */}
           
             <div
               style={{

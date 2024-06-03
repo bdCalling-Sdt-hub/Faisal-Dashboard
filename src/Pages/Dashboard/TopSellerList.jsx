@@ -5,6 +5,11 @@ import Swal from 'sweetalert2';
 import { CiMenuKebab } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux'
+import { topSeller } from "../../redux/apiSlice/Home/topSellerSlice"
+import { Empty } from 'antd';
+
+
 const data = [
     {
       key: "1",
@@ -161,6 +166,14 @@ const TopSellerList = () => {
             }
         });
     }
+
+    const dispatch = useDispatch();
+    const {seller} = useSelector(state=> state.getTopSeller);
+    console.log(seller) 
+
+    useEffect(()=>{
+        dispatch(topSeller(page))
+    }, [dispatch]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -321,7 +334,7 @@ const TopSellerList = () => {
                 }}
             >
                 <h2 style={{fontSize: "32px", marginBottom: "16px", fontWeight: 600, color: "#6A6D7C"}}>Top Seller List</h2>
-                <Table columns={columns} dataSource={data} pagination={{
+                <Table columns={columns} dataSource={seller} pagination={{
                   pageSize: 8,
                   current: parseInt(page),
                   onChange: handlePageChange

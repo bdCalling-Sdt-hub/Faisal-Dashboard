@@ -19,7 +19,7 @@ export const login = createAsyncThunk(
                     authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
-            localStorage.setItem('token', response?.data?.token);
+            localStorage.setItem('token', JSON.stringify(response?.data?.token));
             return response?.data?.data;
         }catch(error){
             const message = error?.response?.data?.message;

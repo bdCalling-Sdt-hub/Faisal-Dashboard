@@ -1,27 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
 
-
 const initialState = {
     error: false,
     success: false,
-    loading: false,
+    loading: false
   };
 
-export const resetPassword = createAsyncThunk(
-    'resetPassword',
+export const makeAdmin = createAsyncThunk(
+    'admins',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/auth/reset-password`, {...value}, {
+            const response = await baseURL.post(`/auth/register`, value, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            console.log(response)
-            return response?.data?.message;
+            return response?.data.data;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.response?.data?.message);
+            const message = error?.response?.data?.message;
+            return thunkApi.rejectWithValue(message);
         }
         
     }
@@ -29,20 +28,20 @@ export const resetPassword = createAsyncThunk(
 
 
 
-export const resetPasswordSlice = createSlice({
-    name: 'resetPassword',
+export const makeAdminSlice = createSlice({
+    name: 'admins',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(resetPassword.pending, (state)=> {
+        builder.addCase(makeAdmin.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+        builder.addCase(makeAdmin.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
         }),
-        builder.addCase(resetPassword.rejected, (state)=> {
+        builder.addCase(makeAdmin.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
@@ -50,4 +49,4 @@ export const resetPasswordSlice = createSlice({
     }
 });
 
-export default resetPasswordSlice.reducer
+export default makeAdminSlice.reducer

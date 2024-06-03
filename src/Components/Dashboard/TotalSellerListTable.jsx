@@ -1,88 +1,24 @@
-import { Button, Table, } from "antd";
+import { Table, } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { FiEye, } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { FaRegTrashCan } from "react-icons/fa6";
 import { CiMenuKebab } from "react-icons/ci";
-
-
-const data = [
-  {
-    key: "1",
-    name: "Tushar",
-    email: "tushar@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    location: "Banasree",
-    status: "Active",
-    selling: "500",
-    balance: "600",
-  },
-  {
-    key: "2",
-    name: "Rahman",
-    email: "rahman@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    location: "Banasree",
-    status: "Inactive",
-    selling: "500",
-    balance: "600",
-  },
-  {
-    key: "3",
-    name: "Rafsan",
-    email: "rafsan@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    location: "Banasree",
-    status: "Active",
-    selling: "500",
-    balance: "600",
-  },
-  {
-    key: "4",
-    name: "jusef",
-    email: "jusef@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    location: "Banasree",
-    status: "Inactive",
-    selling: "500",
-    balance: "600",
-  },
-  {
-    key: "5",
-    name: "Asad",
-    email: "asad@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    location: "Banasree",
-    status: "Active",
-    selling: "500",
-    balance: "600",
-  },
-  {
-    key: "6",
-    name: "Fahim",
-    email: "fahim@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    status: "Inactive",
-    selling: "500",
-    balance: "600",
-  },
-  {
-    key: "7",
-    name: "Nadir",
-    email: "nadir@gmail.com",
-    date: "18 Jul, 2023  4:30pm",
-    location: "Banasree",
-    status: "Active",
-    selling: "500",
-    balance: "600",
-  }
-];
+import { getSellerList } from "../../redux/apiSlice/Home/getSellerListSlice"
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 const TotalSellerListTable = () =>{
-  const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1);
   const [open, setOpen] = useState();
   const dropdownRef = useRef();
+  const dispatch = useDispatch();
+  const {sellers} = useSelector(state=> state.getSellerList)
+
+  useEffect(()=>{
+    dispatch(getSellerList())
+  }, [dispatch])
+
+
+
   const handleDelete=(id)=>{
     Swal.fire({
         title: "Are you sure?",
@@ -110,11 +46,14 @@ const TotalSellerListTable = () =>{
         title: "S.No",
         dataIndex: "key",
         key: "key",
+        render: (_, record, index) => (
+          <p>{index + 1}</p>
+        )
       },
       {
         title: "Name",
-        dataIndex: "name",
-        key: "username",
+        dataIndex: "fullName",
+        key: "fullName",
       },
       {
         title: "Email",
@@ -126,6 +65,9 @@ const TotalSellerListTable = () =>{
         title: "Date",
         dataIndex: "date",
         key: "date",
+        render: (_, record) => (
+          <p>{moment(record?.createdAt).format('L')}</p>
+        )
       },
       {
         title: "Location",
@@ -145,8 +87,8 @@ const TotalSellerListTable = () =>{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: record?.status === "Active" ? "#E0F9F7"  : "#FFC3C3" ,
-                  color: record?.status === "Active" ? "#2FD5C7" : "#9C0101"
+                  background: record?.status === "ACTIVE" ? "#E0F9F7"  : "#FFC3C3" ,
+                  color: record?.status === "ACTIVE" ? "#2FD5C7" : "#9C0101"
               }}
           >
               {record?.status}
@@ -160,15 +102,15 @@ const TotalSellerListTable = () =>{
         key: "printView",
         render: (_,record) => (
           <div style={{position: "relative"}}>
-            <CiMenuKebab onClick={(e)=>(e.stopPropagation() ,setOpen(record.key))} size={20} color='black' style={{ cursor: "pointer" }} />
+            <CiMenuKebab onClick={(e)=>(e.stopPropagation() ,setOpen(record._id))} size={20} color='black' style={{ cursor: "pointer" }} />
 
             <div
               onClick={(e)=>e.stopPropagation()}
               ref={dropdownRef}
               style={{
-                display: record?.key === open ? "block" : "none", 
+                display: record?._id === open ? "block" : "none", 
                 width: "113px",
-                height: "132px",
+                height: 90,
                 borderRadius: "8px",
                 zIndex: "2",
                 position: "absolute", 
@@ -182,24 +124,7 @@ const TotalSellerListTable = () =>{
               }}
             >
               <p
-                style={{
-                  width: "88px",
-                  height: "31px",
-                  borderRadius: "100px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "#E0F9F7" ,
-                  color: "#2FD5C7",
-                  margin: "0 auto 0 auto",
-                  cursor: "pointer",
-                  marginBottom: "8px"
-                }}
-              >
-                Approve
-              </p>
-              <p
-                onClick={handleDelete}
+                onClick={()=>handleDelete(record?._id)}
                 style={{
                   width: "88px",
                   height: "31px",
@@ -239,14 +164,6 @@ const TotalSellerListTable = () =>{
       },
   ];
 
-
-  const handlePageChange=(page)=>{
-    setPage(page);
-    const params = new URLSearchParams(window.location.search);
-    params.set('page', page);
-    window.history.pushState(null, "", `?${params.toString()}`);
-  }
-
   useEffect(() => {
     const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -269,7 +186,7 @@ const TotalSellerListTable = () =>{
       </div>
       <Table 
         columns={columns} 
-        dataSource={data.slice(0, 5)} 
+        dataSource={sellers.slice(0, 5)} 
         pagination={false}
       />
     </div>

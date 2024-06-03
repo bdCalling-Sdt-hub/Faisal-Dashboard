@@ -14,8 +14,8 @@ export const getProfile = createAsyncThunk(
         try{
             const response = await baseURL.get(`/auth/loggeduser`, {
                 headers: {
-                  "Content-Type": "application/json",
-                  authorization: `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
             return response?.data?.data;

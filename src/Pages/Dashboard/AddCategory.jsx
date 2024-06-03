@@ -90,6 +90,32 @@ const AddCategory = () => {
                     </div>
 
                     <div style={{width: "100%"}}>
+
+                        <Form.Item 
+                                style={{marginBottom: 0}}
+                                name={"name"}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please Enter "
+                                    }
+                                ]}
+                            >
+                                <Input
+                                    placeholder='Enter Category Name'
+                                    style={{ 
+                                        width: "100%",
+                                        height: "44px",
+                                        border: "none",
+                                        borderRadius: "8px",
+                                        padding : "16px",
+                                        color: "black",
+                                        outline: "none",
+                                        backgroundColor: "#E9EAEC"
+                                    }}
+                                />
+                            </Form.Item>
+
                         <label style={{marginBottom : 5, display: "block"}}>Add Some Extra Field</label>
                         <Form.List name="features">
                             {

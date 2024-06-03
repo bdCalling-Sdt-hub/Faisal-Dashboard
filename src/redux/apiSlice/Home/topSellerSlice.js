@@ -1,27 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
 
-
 const initialState = {
     error: false,
     success: false,
     loading: false,
+    seller: []
   };
 
-export const resetPassword = createAsyncThunk(
-    'resetPassword',
+export const topSeller = createAsyncThunk(
+    'topSeller',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/auth/reset-password`, {...value}, {
+            const response = await baseURL.get(`/auth/top-seller-list?page=${value}`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            console.log(response)
-            return response?.data?.message;
+            return response?.data;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.response?.data?.message);
+            const message = error?.message;
+            return thunkApi.rejectWithValue(message);
         }
         
     }
@@ -29,25 +29,27 @@ export const resetPassword = createAsyncThunk(
 
 
 
-export const resetPasswordSlice = createSlice({
-    name: 'resetPassword',
+export const topSellerSlice = createSlice({
+    name: 'topSeller',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(resetPassword.pending, (state)=> {
+        builder.addCase(topSeller.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+        builder.addCase(topSeller.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
+            state.seller= action.payload
         }),
-        builder.addCase(resetPassword.rejected, (state)=> {
+        builder.addCase(topSeller.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
+            state.seller= []
         })
     }
 });
 
-export default resetPasswordSlice.reducer
+export default topSellerSlice.reducer

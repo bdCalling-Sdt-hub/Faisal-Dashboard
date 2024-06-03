@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
-import { message } from "antd";
-
 
 const initialState = {
     error: false,
@@ -9,20 +7,21 @@ const initialState = {
     loading: false
   };
 
-export const changePassword = createAsyncThunk(
-    'changePassword',
+export const deleteCategory = createAsyncThunk(
+    'deleteCategory',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/auth/change-password`, {...value}, {
+            const response = await baseURL.delete(`/category/${value}`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            return response?.data?.message;
+            return response?.data.message;
         }catch(error){
             console.log(error)
-            return thunkApi.rejectWithValue(error?.response?.data?.message);
+            const message = error?.message;
+            return thunkApi.rejectWithValue(message);
         }
         
     }
@@ -30,20 +29,20 @@ export const changePassword = createAsyncThunk(
 
 
 
-export const changePasswordSlice = createSlice({
-    name: 'changePassword',
+export const deleteCategorySlice = createSlice({
+    name: 'deleteCategory',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(changePassword.pending, (state)=> {
+        builder.addCase(deleteCategory.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(changePassword.fulfilled, (state, action)=> {
-            state.error= false;
-            state.success= true;
-            state.loading= false;
+        builder.addCase(deleteCategory.fulfilled, (state, action)=> {
+            state.error= false,
+            state.success= true,
+            state.loading= false
         }),
-        builder.addCase(changePassword.rejected, (state, action)=> {
+        builder.addCase(deleteCategory.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
@@ -51,4 +50,4 @@ export const changePasswordSlice = createSlice({
     }
 });
 
-export default changePasswordSlice.reducer
+export default deleteCategorySlice.reducer

@@ -1,27 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
 
-
 const initialState = {
     error: false,
     success: false,
     loading: false,
+    admins: []
   };
 
-export const resetPassword = createAsyncThunk(
-    'resetPassword',
+export const getAdmins = createAsyncThunk(
+    'admins',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.post(`/auth/reset-password`, {...value}, {
+            const response = await baseURL.get(`/auth/all-admin-account`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            console.log(response)
-            return response?.data?.message;
+            return response?.data.data;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.response?.data?.message);
+            const message = error?.message;
+            return thunkApi.rejectWithValue(message);
         }
         
     }
@@ -29,25 +29,27 @@ export const resetPassword = createAsyncThunk(
 
 
 
-export const resetPasswordSlice = createSlice({
-    name: 'resetPassword',
+export const getAdminsSlice = createSlice({
+    name: 'admins',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(resetPassword.pending, (state)=> {
+        builder.addCase(getAdmins.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(resetPassword.fulfilled, (state, action)=> {
+        builder.addCase(getAdmins.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
+            state.admins= action.payload
         }),
-        builder.addCase(resetPassword.rejected, (state)=> {
+        builder.addCase(getAdmins.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
+            state.admins= []
         })
     }
 });
 
-export default resetPasswordSlice.reducer
+export default getAdminsSlice.reducer
