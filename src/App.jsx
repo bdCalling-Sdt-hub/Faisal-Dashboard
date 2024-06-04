@@ -23,6 +23,7 @@ import Category from "./Pages/Dashboard/Category";
 import AddCategory from "./Pages/Dashboard/AddCategory";
 import AboutUs from "./Pages/Dashboard/AboutUs";
 import PrivacyPolicy from "./Pages/Dashboard/PrivacyPolicy";
+import EditCategory from "./Pages/Dashboard/EditCategory";
 
 function App() {
   return (
@@ -40,11 +41,12 @@ function App() {
               <Route path="/settings-profile" element={<Profile />} />
               <Route path="/seller-list" element={<TotalSellerList  />} />
               <Route path="/seller-details/:id" element={<SellerDetails />} />
-              <Route path="/seller-product-list" element={<SellerProductList />} />
+              <Route path="/seller-product-list/:id" element={<SellerProductList />} />
               <Route path="/emails" element={<Emails />} />
               <Route path="/top-seller-list" element={<TopSellerList />} />
               <Route path="/category" element={<Category />} />
               <Route path="/add-category" element={<AddCategory />} />
+              <Route path="/edit-category/:id" element={<EditCategory />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Route>

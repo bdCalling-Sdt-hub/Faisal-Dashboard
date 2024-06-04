@@ -20,6 +20,7 @@ export const login = createAsyncThunk(
                 }
             });
             localStorage.setItem('token', JSON.stringify(response?.data?.token));
+            localStorage.setItem('user', JSON.stringify(response?.data?.data));
             return response?.data?.data;
         }catch(error){
             const message = error?.response?.data?.message;

@@ -19,6 +19,14 @@ import topSellerSlice from './apiSlice/Home/topSellerSlice';
 import blockSellerSlice from './apiSlice/Home/blockSellerSlice';
 import getSummarySlice from './apiSlice/Home/getSummarySlice';
 import getSellerChartSlice from './apiSlice/Home/gerSellerChartSlice';
+import createCategorySlice from './apiSlice/Category/createCategorySlice';
+import getContactSlice from './apiSlice/Contact/getContactSlice';
+import sendContactSlice from './apiSlice/Contact/sendContactSlice';
+import getNotificationSlice from './apiSlice/Notification/getNotificationSlice';
+import getSingleSellerSlice from './apiSlice/Home/getSingleSellerSlice';
+import getSingleCategorySlice from './apiSlice/Category/getSingleCategorySlice';
+import makeBannerProductsSlice from './apiSlice/Product/makeBannerProductsSlice';
+import makeFeaturedProductsSlice from './apiSlice/Product/makeFeaturedProductsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -44,6 +52,8 @@ export const store = configureStore({
     // categories
     getCategory: getCategoryListSlice,
     deleteCategory: deleteCategorySlice,
+    createCategory: createCategorySlice,
+    getSingleCategory: getSingleCategorySlice,
 
     // seller list
     getSellerList : getSellerListSlice,
@@ -51,6 +61,18 @@ export const store = configureStore({
     blockSeller: blockSellerSlice,
     getSummaryData: getSummarySlice,
     getSellerChart: getSellerChartSlice,
+    getSingleSeller: getSingleSellerSlice,
+
+    // contacts
+    getContacts: getContactSlice,
+    sendContact: sendContactSlice,
+
+    // notifications
+    getNotifications: getNotificationSlice,
+
+    // products
+    makeBanner: makeBannerProductsSlice,
+    makeFeature: makeFeaturedProductsSlice,
 
     
   },

@@ -47,7 +47,9 @@ const TotalSellerList = () => {
                     icon: "success",
                     showConfirmButton: false,
                     timer: 1500,
-                  });
+                  }).then((response)=>{
+                    dispatch(getSellerList())
+                  })
                 }else{
                   Swal.fire({
                     title: "Error",

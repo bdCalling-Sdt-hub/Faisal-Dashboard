@@ -1,5 +1,5 @@
 import { Input, Layout,  Badge, } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/logo.jpg";
 import LogoText from "../../assets/logo-text.jpg";
@@ -13,15 +13,31 @@ const { Header, Sider, Content } = Layout;
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdDashboard, MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import { CgMenuGridO } from "react-icons/cg";
+import { ImageConfig } from "../../../Config";
+import { useDispatch, useSelector } from "react-redux";
+import {getNotification} from "../../redux/apiSlice/Notification/getNotificationSlice";
+import {getContact} from "../../redux/apiSlice/Contact/getContactSlice";
+import { UserContext } from "../../Provider/User";
 
 
 const Dashboard = () => {
+  const {notifications} = useSelector(state=> state.getNotifications);
+  const {contacts} = useSelector(state=> state.getContacts);
+  const dispatch = useDispatch();
+  const { user } = useContext(UserContext);
+
+  useEffect(()=>{
+    dispatch(getNotification())
+    dispatch(getContact())
+  }, [dispatch])
+
   const [dropdown, setDropdown] = useState(false)
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const handleLogOut=()=>{
     navigate('/login');
+    localStorage.removeItem("token")
     window.location.reload();
   }
 
@@ -71,6 +87,8 @@ const Dashboard = () => {
         document.removeEventListener('click', handleClickOutside);
     };
 }, []);
+
+// const user = JSON?.parse(localStorage.getItem("user"))
 
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
@@ -256,10 +274,12 @@ const Dashboard = () => {
             }}
           >
 
+          
             <div onClick={handleLogOut} style={{display: "flex", width: "fit-content", margin: "0 auto 0 auto", alignItems: "center", gap: "14px", cursor: "pointer", justifyContent: "center"}}>
               <div style={{color:"#6A6D7C", fontSize: "14px"}}>Logout</div>
               <HiLogout color="#6A6D7C" size={24} />
             </div>
+            
           </li>
 
         </ul>
@@ -277,30 +297,11 @@ const Dashboard = () => {
             padding: 0,
             background: "#EAFBF9",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             paddingRight: "60px",
             paddingLeft: "270px"
           }}
         >
-          <div
-            style={{
-              width: "512px",
-              height: "42px",
-              borderRadius: "8px"
-            }}
-          >
-            <Input
-              placeholder="Search..."
-              prefix={<FiSearch size={14} color="#868FA0"/>}
-              suffix={<IoClose size={14} color="#2B2A2A" />}
-              style={{
-                width: "100%",
-                height: "100%",
-                fontSize: "14px"
-              }}
-              size="middle"
-            />
-          </div>
 
           <div
             style={{
@@ -311,32 +312,37 @@ const Dashboard = () => {
               justifyContent: "space-between"
             }}
           >
-            <Badge color="#23A095" count={5}>
+            <Badge color="#23A095" count={contacts?.length}>
               <Link to="/emails" >
                 <RiChat1Line color="#6A6A6A" size={24} />
               </Link>
             </Badge>
 
-            <Badge color="#C30303" count={5}>
+            <Badge color="#C30303" count={notifications?.length ? notifications?.length : 0}>
               <Link to="/notification" >
                 <RiNotification2Line color="#6A6A6A" size={24} />
               </Link>
             </Badge>
-            <div
-              style={{
-                width: "170px",
-                height:"42px",
-                background: "#FFFFFF",
-                borderRadius: "5px",
-                display: "flex", 
-                alignItems: "center",
-                gap: "20px",
-                padding: "10px"
-              }}
-            >
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLotvhr2isTRMEzzT30Cj0ly77jFThGXr0ng&usqp=CAU" style={{width: "30px", height: "30px", borderRadius: "100%"}} alt="" />
-              <h2 style={{color: "black", fontSize: "10px"}}>DR. Jim ahhmed</h2>
-            </div>
+            <Link to="/settings-profile">
+              <div
+                style={{
+                  width: "170px",
+                  height:"42px",
+                  background: "#FFFFFF",
+                  borderRadius: "5px",
+                  display: "flex", 
+                  alignItems: "center",
+                  gap: "20px",
+                  padding: "10px"
+                }}
+              >
+                <img 
+                  src={` ${user?.image?.startsWith("https") ? user?.image : `${ImageConfig}/${user?.image}` }   `}
+                  style={{width: "30px", height: "30px", borderRadius: "100%"}} alt=""
+                />
+                <h2 style={{color: "black", fontSize: "10px"}}>{user?.fullName}</h2>
+              </div>
+            </Link>
           </div>
         </Header>
 

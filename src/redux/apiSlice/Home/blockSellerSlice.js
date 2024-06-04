@@ -12,13 +12,12 @@ export const getBlockSeller = createAsyncThunk(
     'blockSeller',
     async (id, thunkApi) => {
         try{
-            const response = await baseURL.patch(`/auth/block-account/${id}`, {
+            const response = await baseURL.patch(`/auth/block-account/${id}`, {}, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            console.log(response)
             return response?.data;
         }catch(error){
             return thunkApi.rejectWithValue(error?.message);

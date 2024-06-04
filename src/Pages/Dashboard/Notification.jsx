@@ -1,7 +1,9 @@
 import { Table } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import BackButton from './BackButton';
+import { getNotification } from "../../redux/apiSlice/Notification/getNotificationSlice"
+import { useDispatch, useSelector } from 'react-redux';
 
 const data = [
     {
@@ -214,7 +216,14 @@ const Notification = () => {
     params.set('page', page);
     window.history.pushState(null, "", `?${params.toString()}`);
   }
-    return (
+  const dispatch = useDispatch();
+  const {notifications} = useSelector(state=> state.getNotifications);
+  console.log(notifications)
+
+  useEffect(()=>{
+    dispatch(getNotification())
+  }, [dispatch])
+  return (
         <div>
             
             <div style={{marginBottom: "24px"}}>

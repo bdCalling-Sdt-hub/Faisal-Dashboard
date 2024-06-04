@@ -1,56 +1,46 @@
-import { Table, Slider , Dropdown } from 'antd'
-import React, { useState } from 'react'
+import { Table } from 'antd'
+import React from 'react'
 import { Link } from "react-router-dom";
-import { CiFilter } from "react-icons/ci";
-import moment from 'moment';
-import { DownOutlined } from "@ant-design/icons";
-import StockDropdown from '../../Util/StockDropdown';
+import { ImageConfig } from '../../../Config';
+import { makeBanner} from "../../redux/apiSlice/Product/makeBannerProductsSlice";
+import { makeFeatured} from "../../redux/apiSlice/Product/makeFeaturedProductsSlice";
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
-const data = [
-  {
-    key: "1",
-    image: "https://www.custommacbd.com/cdn/shop/products/iphone-14-pro-Max-deeppurple-Custom-Mac-BD_06a3babc-a8fa-4ab1-8bb1-6fa5b55e0dd9.jpg?v=1662622355",
-    name: "Iphone 14 pro max",
-    price: "600",
-    selling: "500",
-    status: "sold",
-  },
-  {
-    key: "2",
-    image: "https://www.clove.co.uk/cdn/shop/products/iphone-13-mini-starlight_1200x.jpg?v=1665065093",
-    name: "Iphone 13 Mini",
-    price: "600",
-    selling: "500",
-    status: "unsold",
-  },
-  {
-    key: "3",
-    image: "https://cdn.dxomark.com/wp-content/uploads/medias/post-127929/Google-Pixel-7_featured-image-packshot-review.jpg",
-    name: "Google Pixel 7",
-    price: "600",
-    selling: "500",
-    status: "sold",
-  },
-  {
-    key: "4",
-    image: "https://www.gizchina.com/wp-content/uploads/images/2022/05/Google-Pixel-7-Pro.jpg",
-    name: "Google Pixel 7 Pro",
-    price: "600",
-    selling: "500",
-    status: "unsold",
+const SellingProductList = ({products, setRefresh}) => {
+  const dispatch = useDispatch();
+
+  const handleFeatured=(id)=>{
+    dispatch(makeFeatured(id)).then((response)=>{
+      if(response?.type === "makeFeatured/fulfilled"){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        }).then((response)=>{
+          setRefresh("done")
+        })
+      }
+    })
   }
-];
-
-
-const SellingProductList = () => {
-  const [category, setCategory] = useState(new URLSearchParams(window.location.search).get('category') || "All")
-  const [stock, setStock] = useState(new URLSearchParams(window.location.search).get('stock') || "In Stock");
-  const [open, setOpen] = useState(false);
-  const [filter, setFilter] = useState(false);
-  const [toggle, setToggle] = useState(false);
-  const [toggle2, setToggle2] = useState(false);
-  const [toggleId, setToggleId] = useState();
-  const [toggleId2, setToggleId2] = useState();
+  
+  const handleBanner=(id)=>{
+    dispatch(makeBanner(id)).then((response)=>{
+      if(response?.type === "makeBanner/fulfilled"){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response?.payload,
+          showConfirmButton: false,
+          timer: 1500
+        }).then((response)=>{
+          setRefresh("done")
+        })
+      }
+    })
+  }
 
 
   const columns = [
@@ -58,8 +48,8 @@ const SellingProductList = () => {
       title: "Serial No.",
       dataIndex: "no",
       key: "no",
-      render: (_,record) => (
-        <p>{record.key}</p>
+      render: (_,record, index) => (
+        <p>{index  + 1}</p>
       ),
     },
     {
@@ -67,29 +57,18 @@ const SellingProductList = () => {
       dataIndex: "image",
       key: "image",
       render: (_,record) => (
-        <img src={record?.image} style={{width:"40px", height: "40px"}}  alt="" />
+        <img src={`${ImageConfig}/${record?.productImage[0]}`} style={{width:"40px", height: "40px"}}  alt="" />
       ),
     },
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "productName",
+      key: "productName",
     },
     {
       title: "Price",
-      dataIndex: "price",
-      key: "price",
-      render: (_,record) => (
-        <p>${record?.price}</p>
-      ),
-    },
-    {
-      title: "Sold",
-      dataIndex: "sold",
-      key: "sold",
-      render: (_,record) => (
-        <p>{record.status}</p>
-      ),
+      dataIndex: "productPrice",
+      key: "productPrice",
     },
     {
       title: "Action",
@@ -97,7 +76,7 @@ const SellingProductList = () => {
       key: "action",
       render: (_, record) => (
         <button
-          onClick={()=>(setToggle(!toggle), setToggleId(record.key))} 
+          onClick={()=>handleFeatured(record?._id)} 
           style={{
             padding: "3px 0",
             borderRadius: 4,
@@ -109,7 +88,7 @@ const SellingProductList = () => {
           }}
         >
           {
-            toggleId === record.key && toggle
+            record?.featured
             ?
             "Product"
             :
@@ -124,7 +103,7 @@ const SellingProductList = () => {
       key: "baction",
       render: (_, record) => (
         <button
-          onClick={()=>(setToggle2(!toggle2), setToggleId2(record.key))} 
+          onClick={()=>handleBanner(record?._id)} 
           style={{
             padding: "3px 0",
             borderRadius: 4,
@@ -136,7 +115,7 @@ const SellingProductList = () => {
           }}
         >
           {
-            toggleId2 === record.key && toggle2
+            record.bannerProduct
             ?
             "Remove Banner"
             :
@@ -146,26 +125,7 @@ const SellingProductList = () => {
       ),
   }
   ];
-    
-  const items = [
-      {
-        label: "House",
-        key: "House",
-      },
-      {
-        label: "Car",
-        key: "Car",
-      },
-      {
-        label: "Phone",
-        key: "Phone",
-      },
-  ];
 
-  const onClick = ({ key }) => {
-    setCategory(key)
-    window.history.pushState(null, "", `?category=${key}`);
-  };
 
 
     return (
@@ -178,7 +138,7 @@ const SellingProductList = () => {
         }}>
             <div style={{display: "flex", alignItems: "center", marginBottom: "10px", justifyContent: "space-between"}}>
                 <h1 style={{fontSize: "20px", fontWeight: 600, color: "#2F2F2F"}}>Selling Products</h1>
-                <Link to="/seller-product-list">
+                <Link to={`/seller-product-list/${ products && products[0]?.userId}`}>
                   <p style={{color: "#2FD5C7", fontSize:"12px", textDecoration: "underline"}}>VIEW ALL</p>
                 </Link>
             </div>
@@ -186,7 +146,7 @@ const SellingProductList = () => {
             <div>
                 <Table 
                     columns={columns} 
-                    dataSource={data} 
+                    dataSource={products} 
                     pagination={false}
                 />
                 

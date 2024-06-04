@@ -1,27 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
 
-
 const initialState = {
     error: false,
     success: false,
     loading: false,
-    profile: {},
+    seller: {}
   };
 
-export const editProfile = createAsyncThunk(
-    'editProfile',
+export const getSingleSeller = createAsyncThunk(
+    'getSingleSeller',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.put(`/auth/profile-update`, value, {
+            const response = await baseURL.get(`/auth/all-seller-details/${value}`, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
             return response?.data;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.message);
+            const message = error?.message;
+            return thunkApi.rejectWithValue(message);
         }
         
     }
@@ -29,27 +29,27 @@ export const editProfile = createAsyncThunk(
 
 
 
-export const editProfileSlice = createSlice({
-    name: 'editProfile',
+export const getSingleSellerSlice = createSlice({
+    name: 'getSingleSeller',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(editProfile.pending, (state)=> {
+        builder.addCase(getSingleSeller.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(editProfile.fulfilled, (state, action)=> {
+        builder.addCase(getSingleSeller.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
-            state.profile= action.payload.data
+            state.seller= action.payload
         }),
-        builder.addCase(editProfile.rejected, (state)=> {
+        builder.addCase(getSingleSeller.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
-            state.profile= {}
+            state.seller= {}
         })
     }
 });
 
-export default editProfileSlice.reducer
+export default getSingleSellerSlice.reducer

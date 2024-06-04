@@ -42,7 +42,7 @@ const Category = () => {
                             timer: 1500,
                             showConfirmButton: false,
                         }).then(()=>{
-                            dispatch(AllAdmin());
+                            dispatch(getCategory());
                         })
                     }
                 })
@@ -77,8 +77,10 @@ const Category = () => {
                     alignItems: "center",
                     gap: "20px"                    
                 }}>
-                    <FaRegEdit style={{cursor: "pointer"}} size={22} />
-                    <MdDelete onClick={()=>handleDelete(record._id)} style={{cursor: "pointer"}} size={22} />
+                    <Link to={`/edit-category/${record?._id}`}>
+                        <FaRegEdit style={{cursor: "pointer"}} size={22} />
+                    </Link>
+                    <MdDelete onClick={()=>handleDelete(record._id)} style={{cursor: "pointer"}} color='red' size={22} />
                 </div>
             )
         }

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BackButton from './BackButton';
 import { HiOutlineMail } from "react-icons/hi";
-import { Input, Pagination } from 'antd';
+import { Input, Pagination, Table } from 'antd';
 import { FiSearch } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 import { MdDelete } from "react-icons/md";
@@ -9,6 +9,11 @@ import { MdClose } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 import { TfiLink } from "react-icons/tfi";
 import { FaFileImage } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { getContact } from "../../redux/apiSlice/Contact/getContactSlice";
+import { sendContact } from "../../redux/apiSlice/Contact/sendContactSlice";
+import moment from "moment";
+import Swal from 'sweetalert2';
 
 const Emails = () => {
     const [tab, setTab] = useState(new URLSearchParams(window.location.search).get('tab') || "inbox");
@@ -16,11 +21,20 @@ const Emails = () => {
     const [search, setSearch] = useState("");
     const [to, setTo] = useState("");
     const [message, setMessage] = useState("")
+    const dispatch = useDispatch();
+    const {contacts, pagination} = useSelector(state=> state.getContacts)
+
+
+    useEffect(()=>{
+        dispatch(getContact())
+    }, [dispatch])
 
     const handleReset=()=>{
         setTo("");
         setMessage("")
     }
+
+
     const handleTab=(value)=>{
         setTab(value);
         const params = new URLSearchParams(window.location.search);
@@ -34,6 +48,54 @@ const Emails = () => {
         params.set('page', page);
         window.history.pushState(null, "", `?${params.toString()}`);
     };
+
+    const handleSubmit =()=>{
+        dispatch(sendContact({email :to, description : message })).then((response)=>{
+            if(response?.type === "sendContact/fulfilled"){
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: response?.payload?.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
+
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'fullName',
+            key: "fullName",
+            render: (_, data)=>(
+                <p>{data?.userId?.fullName}</p>
+            )
+          
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: "email",
+            render: (_, data)=>(
+                <p>{data?.userId?.email}</p>
+            )
+        },
+        {
+            title: 'Message',
+            dataIndex: 'message',
+            key: "message",
+        },
+        {
+            title: 'Time',
+            dataIndex: 'createdAt',
+            key: "createdAt",
+            render: (_, data)=>(
+                <p>{ moment(data?.createdAt).startOf('hour').fromNow()}</p>
+            )
+        },
+    ];
 
     return (
         <div>
@@ -105,7 +167,7 @@ const Emails = () => {
                             <HiOutlineMail size={17} />
                             <p>message</p>
                         </div>
-                        1253
+                        {contacts?.length}
                     </div>
                 </div>
                 
@@ -156,39 +218,7 @@ const Emails = () => {
                                 <MdDelete  style={{cursor: "pointer"}} size={25} />
                             </div>
                             
-                            {/* email list */}
-                            <div>
-                                <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 18px 0 18px",}}>
-                                    <p style={{width: "5%", textAlign: "center"}}>Name</p>
-                                    <p style={{width: 0, textAlign: "center"}}>email</p>
-                                    <p style={{width: "25%",}}>Details</p>
-                                    <p style={{width: "5%", textAlign: "center"}}>Time</p>
-                                </div>
-                                {
-                                    [...Array(10).keys()].map((item, index)=>
-                                        <div key={index}
-                                            style={{
-                                                borderBottom: "1px solid #E0E0E0"
-                                            }}
-                                        >
-                                            <div
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: 'space-between',
-                                                    padding: "18px",
-                                                }}
-                                            >
-                                                <p>Jullu Jalal</p>
-                                                <p>jullu@gmail.com</p>
-                                                <p>Our Bachelor of Commerce program is ACBSP-accredited.</p>
-                                                <p>8:38 AM</p>
-                                            </div>
-                                        </div>
-                                    
-                                    )
-                                }
-                            </div>
+                            <Table columns={columns} dataSource={contacts} pagination={false} />
 
                             {/* pagination */}
                             <div style={{
@@ -199,7 +229,7 @@ const Emails = () => {
                             }}>
                                 <Pagination 
                                     defaultCurrent={parseInt(page)} 
-                                    total={10} 
+                                    total={pagination.total} 
                                     onChange={handlePageChange} 
                                 />
                             </div>
@@ -310,6 +340,7 @@ const Emails = () => {
                                         </label>
 
                                         <button
+                                            onClick={handleSubmit}
                                             style={{
                                                 width: "120px",
                                                 height:"38px",

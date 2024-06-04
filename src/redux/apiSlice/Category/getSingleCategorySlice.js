@@ -1,27 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {baseURL} from "../../../../Config";
 
-
 const initialState = {
     error: false,
     success: false,
     loading: false,
-    profile: {},
-  };
+    category: {}
+};
 
-export const editProfile = createAsyncThunk(
-    'editProfile',
+export const getCategory = createAsyncThunk(
+    'getCategory',
     async (value, thunkApi) => {
         try{
-            const response = await baseURL.put(`/auth/profile-update`, value, {
+            const response = await baseURL.get(`/category/${value}`, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            return response?.data;
+            console.log(response)
+            return response?.data.data;
         }catch(error){
-            return thunkApi.rejectWithValue(error?.message);
+            const message = error?.message;
+            return thunkApi.rejectWithValue(message);
         }
         
     }
@@ -29,27 +30,27 @@ export const editProfile = createAsyncThunk(
 
 
 
-export const editProfileSlice = createSlice({
-    name: 'editProfile',
+export const getCategorySlice = createSlice({
+    name: 'getCategory',
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(editProfile.pending, (state)=> {
+        builder.addCase(getCategory.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(editProfile.fulfilled, (state, action)=> {
+        builder.addCase(getCategory.fulfilled, (state, action)=> {
             state.error= false,
             state.success= true,
             state.loading= false
-            state.profile= action.payload.data
+            state.category= action.payload
         }),
-        builder.addCase(editProfile.rejected, (state)=> {
+        builder.addCase(getCategory.rejected, (state)=> {
             state.error= true,
             state.success= false,
             state.loading= false
-            state.profile= {}
+            state.category= {}
         })
     }
 });
 
-export default editProfileSlice.reducer
+export default getCategorySlice.reducer

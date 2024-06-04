@@ -140,7 +140,7 @@ const TotalSellerListTable = () =>{
               >
                 Block
               </p>
-              <Link to={`/seller-details/${record?.key}`}>
+              <Link to={`/seller-details/${record?._id}`}>
                 <p
                   style={{
                     width: "88px",

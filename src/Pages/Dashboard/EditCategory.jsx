@@ -1,60 +1,45 @@
-import React, { useState } from 'react'
-import BackButton from './BackButton'
+import { Button, Form, Input, Select } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { getCategory } from "../../redux/apiSlice/Category/getSingleCategorySlice";
+import { editCategory } from "../../redux/apiSlice/Category/editCategorySlice";
+import { useParams } from 'react-router-dom';
+import BackButton from './BackButton';
 import { CiCamera, CiCircleMinus, CiCirclePlus } from 'react-icons/ci'
-import { Button, Form, Input, Select } from 'antd'
-import { createCategory } from "../../redux/apiSlice/Category/createCategorySlice"
-import { useDispatch } from 'react-redux'
-import Swal from 'sweetalert2'
+import { ImageConfig } from '../../../Config';
 const { Option } = Select;
 
-function transformData(data) {
-    const transformedData = {
-        categoryName: data.category_name,
-        someExtraField: []
-    };
-
-    const keys = Object.keys(data);
-    
-    for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-
-        if (key.startsWith('name')) {
-            const index = key.slice(4);
-
-            transformedData.someExtraField.push({
-                name: data[key],
-                type: data[`type${index}`],
-                option: data[`option${index}`]
-            });
-        }
-    }
-    
-    return transformedData;
-}
-
-
-
-const AddCategory = () => {
+const EditCategory = () => {
     const [image, setImage] = useState();
-    const [number, setNumber] = useState(1);
+    const [imageURL, setimageURL] = useState(null)
+    const [categoryImage, setCategoryImage] = useState(null)
+    const [number, setNumber] = useState(0);
+    const [value, setValue] = useState("")
+    console.log(value)
     const dispatch = useDispatch();
+    const [form] = Form.useForm();
+    const { id } = useParams()
+    const { category } = useSelector(state => state.getSingleCategory);
 
     const handleSubmit=(values)=>{
-        const newData = transformData(values);
         const formData = new FormData();
-
-        formData.append("categoryImage", image)
-        formData.append("categoryName", newData.categoryName)
-        if(newData !== "" || newData){
-            formData.append("someExtraField", JSON.stringify(newData.someExtraField))
+        if(image){
+            formData.append("categoryImage", image)
+        }
+        formData.append("categoryName", values.categoryName)
+        formData.append("someExtraField", JSON.stringify(values.someExtraField))
+        const value = {
+            id: id,
+            data: formData
         }
 
-        dispatch(createCategory(formData)).then((response)=>{
-            if(response.type === "createCategory/fulfilled"){
+        dispatch(editCategory(value)).then((response)=>{
+            if(response.type === "editCategory/fulfilled"){
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Category Created Successfully",
+                    title: "Category Updated Successfully",
                     showConfirmButton: false,
                     timer: 1500
                 }).then((response)=>{
@@ -65,16 +50,39 @@ const AddCategory = () => {
     
     }
 
+    useEffect(()=>{
+        dispatch(getCategory(id))
+    }, [dispatch, id])
+
+    useEffect(()=>{
+        if(category){
+            const initialValues = {
+                categoryName: category?.categoryName,
+                categoryImage: category?.categoryImage,
+                someExtraField: category?.someExtraField?.map((item, index) => ({
+                    name: item.name,
+                    type: item.type,
+                    option: item.option
+                }))
+            };
+            form.setFieldsValue(initialValues);
+            setNumber(category?.someExtraField?.length)
+            setImage(category?.categoryImage)
+        }
+    }, [category, form])
+
     const handleImage=(e)=>{
         const file = e.target.files[0];
         setImage(file);
+        const url = URL.createObjectURL(file)
+        setimageURL(url)
     }
     return (
         <div>
             <div style={{marginBottom: "16px"}}>
                 <BackButton link="/category" />
             </div>
-            <Form onFinish={handleSubmit} layout='vertical'>
+            <Form onFinish={handleSubmit} form={form} layout='vertical'>
                 <div 
                     style={{
                         background: "white", 
@@ -94,7 +102,7 @@ const AddCategory = () => {
                             <label style={{marginBottom : 5, display: "block"}}>Category name</label>
                             <Form.Item 
                                 style={{marginBottom: 0}}
-                                name={"category_name"}
+                                name="categoryName"
                                 rules={[
                                     {
                                         required: true,
@@ -134,7 +142,7 @@ const AddCategory = () => {
                                     justifyContent: "center",
                                     color: "black",
                                     cursor: "pointer",
-                                    backgroundImage:    `url(${ image ? URL.createObjectURL(image) :"https://img.freepik.com/free-photo/paper-textured-background_53876-30486.jpg?size=626&ext=jpg&ga=GA1.1.1395880969.1709596800&semt=ais"})`, // Replace 'your-image-url.jpg' with your actual image URL
+                                    backgroundImage:    `url(${ imageURL ? imageURL : `${ImageConfig}/${categoryImage}` })`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center"
                                 }}
@@ -156,7 +164,7 @@ const AddCategory = () => {
                                     <div key={index} style={{borderBottom: "1px solid #E9EAEC",  marginBottom: 24}}>
                                         <Form.Item 
                                             style={{marginBottom: 24}}
-                                            name={`name${index}`}
+                                            name={['someExtraField', index, 'name']}
                                             label="Field Name"
                                             rules={[
                                                 {
@@ -182,7 +190,7 @@ const AddCategory = () => {
 
                                         <Form.Item 
                                             style={{marginBottom: 24}}
-                                            name={`type${index}`}
+                                            name={['someExtraField', index, 'type']}
                                             label="Type"
                                             rules={[
                                                 {
@@ -190,6 +198,7 @@ const AddCategory = () => {
                                                     message: "Please Select Type"
                                                 }
                                             ]}
+                                            
                                         >
                                             <Select
                                                 style={{
@@ -200,6 +209,7 @@ const AddCategory = () => {
                                                     borderRadius: 8,
                                                     background:"#E9EAEC"
                                                 }}
+                                                onChange={(e)=>setValue([e, index])}
                                             >
                                                 <Option value="CHECKBOX">CHECKBOX</Option>
                                                 <Option value="RADIO">RADIO</Option>
@@ -209,65 +219,74 @@ const AddCategory = () => {
                                                 <Option value="INPUT">INPUT</Option>
                                             </Select>
                                         </Form.Item>
+                                        
+                                        <>
+                                            
+                                                <div 
+                                                    style={{
+                                                        display: value[0] === "IMAGE" || value[0] === "DATE" || value[0] === "INPUT" && index === value[1] ? "none" : "block"
+                                                    }}
+                                                >
+                                                    <label htmlFor="" style={{marginBottom: 24, display: "block"}}>Option</label>  
+                                                    <Form.List name={['someExtraField', index, 'option']} label="Option">
+                                                        {
+                                                            (fields, { add, remove }) => 
+                                                            <>
+                                                                {
+                                                                    fields.map((field, index) => {
+                                                                        
+                                                                        return (
+                                                                            <Form.Item
+                                                                                required={false}
+                                                                                key={index}
+                                                                            >
+                                                                                <div style={{display: "flex", alignItems: "center", gap: 8}}>
+                                                                                    <Form.Item
+                                                                                        {...field}
+                                                                                        validateTrigger={['onChange', 'onBlur']}
+                                                                                        style={{
+                                                                                            marginBottom : 0, 
+                                                                                            width: "100%"
+                                                                                        }}
+                                                                                    >
+                                                                                        <Input
+                                                                                            placeholder='Enter Extra Field Name'
+                                                                                            style={{
+                                                                                                width: "100%",
+                                                                                                height: "44px",
+                                                                                                border: "none",
+                                                                                                borderRadius: "8px",
+                                                                                                padding : "16px",
+                                                                                                color: "black",
+                                                                                                outline: "none",
+                                                                                                backgroundColor: "#E9EAEC"
+                                                                                            }}
+                                                                                        />
+                                                                                    </Form.Item>
 
-                                        <label htmlFor="" style={{marginBottom: 24, display: "block"}}>Option</label>  
-                                        <Form.List name={`option${index}`} label="Option" initialValue={[""]}>
-                                            {
-                                                (fields, { add, remove }) => 
-                                                <>
-                                                    {
-                                                        fields.map((field, idx) => {
-                                                            
-                                                            return (
-                                                                <Form.Item
-                                                                    required={false}
-                                                                    key={idx}
-                                                                >
-                                                                    <div style={{display: "flex", alignItems: "center", gap: 8}}>
-                                                                        <Form.Item
-                                                                            {...field}
-                                                                            validateTrigger={['onChange', 'onBlur']}
-                                                                            style={{
-                                                                                marginBottom : 0, 
-                                                                                width: "100%"
-                                                                            }}
-                                                                        >
-                                                                            <Input
-                                                                                placeholder='Enter Extra Field Name'
-                                                                                style={{
-                                                                                    width: "100%",
-                                                                                    height: "44px",
-                                                                                    border: "none",
-                                                                                    borderRadius: "8px",
-                                                                                    padding : "16px",
-                                                                                    color: "black",
-                                                                                    outline: "none",
-                                                                                    backgroundColor: "#E9EAEC"
-                                                                                }}
-                                                                            />
-                                                                        </Form.Item>
+                                                                                    <CiCircleMinus
+                                                                                        style={{display: fields.length > 1 ? "block" : "none", cursor: "pointer" }}
+                                                                                        size={40}
+                                                                                        color='red'
+                                                                                        onClick={() => remove(field.name)}
+                                                                                    />
 
-                                                                        <CiCircleMinus
-                                                                            style={{display: fields.length > 1 ? "block" : "none", cursor: "pointer" }}
-                                                                            size={40}
-                                                                            color='red'
-                                                                            onClick={() => remove(field.name)}
-                                                                        />
-
-                                                                        <CiCirclePlus 
-                                                                            style={{cursor: "pointer" }}
-                                                                            size={40}
-                                                                            onClick={() => add()}
-                                                                            color='#23A095'
-                                                                        />
-                                                                    </div>
-                                                                </Form.Item>
-                                                            )
-                                                        })
-                                                    }
-                                                </>       
-                                            }
-                                        </Form.List> 
+                                                                                    <CiCirclePlus 
+                                                                                        style={{cursor: "pointer" }}
+                                                                                        size={40}
+                                                                                        onClick={() => add()}
+                                                                                        color='#23A095'
+                                                                                    />
+                                                                                </div>
+                                                                            </Form.Item>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </>       
+                                                        }
+                                                    </Form.List>
+                                                </div>
+                                        </> 
                                     </div>
                                 )
                             })
@@ -323,4 +342,4 @@ const AddCategory = () => {
     )
 }
 
-export default AddCategory
+export default EditCategory

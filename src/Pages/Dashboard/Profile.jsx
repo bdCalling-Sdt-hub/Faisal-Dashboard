@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import BackButton from './BackButton'
 import { Form, Input, Button, Spin } from 'antd';
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
@@ -7,25 +7,22 @@ import { getProfile } from "../../redux/apiSlice/Authentication/getProfileSlice"
 import { editProfile } from "../../redux/apiSlice/Authentication/editProfileSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { ImageConfig } from '../../../Config';
+import { UserContext } from "../../Provider/User";
 
 const Profile = () => {
     const [image, setImage] = useState();
     const dispatch = useDispatch();
-    const { profile } = useSelector(state => state.profile);
     const [imgURL, setImgURL] = useState();
     const [form] = Form.useForm();
-
-    useEffect(()=>{
-        dispatch(getProfile())
-    }, [dispatch])
+    const { user, setUser } = useContext(UserContext);
 
 
     useEffect(()=>{
-        if (profile) {
-            form.setFieldsValue(profile);
-            setImgURL(profile?.image?.startsWith("https") ? profile?.image : `${ImageConfig}/${profile?.image}`)
+        if (user) {
+            form.setFieldsValue(user);
+            setImgURL(user?.image?.startsWith("https") ? user?.image : `${ImageConfig}/${user?.image}`)
         }
-    }, [profile, form]);
+    }, [user, form]);
 
 
     const handleSubmit=(values)=>{
@@ -34,7 +31,9 @@ const Profile = () => {
         Object.keys(values).forEach((key) => {
             formData.append(key, values[key]);
         });
-        formData.append("image", image);
+        if(image){
+            formData.append("image", image);
+        }
 
         dispatch(editProfile(formData))
         .then((response)=>{
@@ -45,8 +44,8 @@ const Profile = () => {
                     title: "Profile Updated Successfully",
                     showConfirmButton: false,
                     timer: 1500
-                }).then((response)=>{
-                    dispatch(getProfile())
+                }).then((res)=>{
+                    setUser(response?.payload?.data)
                 })
             }
         });
