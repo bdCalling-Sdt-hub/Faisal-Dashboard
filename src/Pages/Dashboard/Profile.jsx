@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import BackButton from './BackButton'
-import { Form, Input, Button, Spin } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import Swal from 'sweetalert2';
-import { getProfile } from "../../redux/apiSlice/Authentication/getProfileSlice";
 import { editProfile } from "../../redux/apiSlice/Authentication/editProfileSlice";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ImageConfig } from '../../../Config';
 import { UserContext } from "../../Provider/User";
 

@@ -16,7 +16,6 @@ const EditCategory = () => {
     const [categoryImage, setCategoryImage] = useState(null)
     const [number, setNumber] = useState(0);
     const [value, setValue] = useState("")
-    console.log(value)
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const { id } = useParams()

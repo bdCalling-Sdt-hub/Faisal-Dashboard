@@ -79,7 +79,6 @@ const MakeAdmin = () => {
     const handleSubmit=(values)=>{
         dispatch(makeAdmin({...values, termAndCondition: true}))
         .then((response)=>{
-            console.log(response)
             if(response?.type === "admins/fulfilled"){
                 Swal.fire({
                     position: "center",

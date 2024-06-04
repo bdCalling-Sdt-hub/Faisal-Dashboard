@@ -18,7 +18,6 @@ export const resetPassword = createAsyncThunk(
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
-            console.log(response)
             return response?.data?.message;
         }catch(error){
             return thunkApi.rejectWithValue(error?.response?.data?.message);

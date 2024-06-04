@@ -19,7 +19,6 @@ export const deleteCategory = createAsyncThunk(
             });
             return response?.data.message;
         }catch(error){
-            console.log(error)
             const message = error?.message;
             return thunkApi.rejectWithValue(message);
         }

@@ -4,10 +4,8 @@ import { Table } from 'antd'
 import Swal from 'sweetalert2';
 import { CiMenuKebab } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux'
 import { topSeller } from "../../redux/apiSlice/Home/topSellerSlice"
-import { Empty } from 'antd';
 
 
 const data = [
@@ -169,7 +167,6 @@ const TopSellerList = () => {
 
     const dispatch = useDispatch();
     const {seller} = useSelector(state=> state.getTopSeller);
-    console.log(seller) 
 
     useEffect(()=>{
         dispatch(topSeller(page))

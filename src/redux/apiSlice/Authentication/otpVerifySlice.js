@@ -10,7 +10,6 @@ const initialState = {
 export const otpVerify = createAsyncThunk(
     'otpVerify',
     async (value, thunkApi) => {
-        console.log(value)
         try{
             const response = await baseURL.post(`/auth/verify-email`, {...value});
             return response?.data?.message;

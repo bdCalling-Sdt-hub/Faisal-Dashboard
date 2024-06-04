@@ -18,8 +18,6 @@ const TotalSellerList = () => {
     const dropdownRef = useRef();
     const dispatch = useDispatch();
     const {sellers} = useSelector(state=> state.getSellerList)
-    const {success} = useSelector(state=> state.blockSeller);
-    console.log(success)
     
 
     useEffect(()=>{
@@ -39,7 +37,6 @@ const TotalSellerList = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               dispatch(getBlockSeller(id)).then((response)=>{
-                // console.log(response)
                 if(response.type === "blockSeller/fulfilled"){
                   Swal.fire({
                     title: "Deleted!",
@@ -47,7 +44,7 @@ const TotalSellerList = () => {
                     icon: "success",
                     showConfirmButton: false,
                     timer: 1500,
-                  }).then((response)=>{
+                  }).then((_response)=>{
                     dispatch(getSellerList())
                   })
                 }else{

@@ -39,7 +39,6 @@ export const getContactSlice = createSlice({
             state.loading= true
         }),
         builder.addCase(getContact.fulfilled, (state, action)=> {
-            // console.log(action.payload.data)
             state.error= false,
             state.success= true,
             state.loading= false,

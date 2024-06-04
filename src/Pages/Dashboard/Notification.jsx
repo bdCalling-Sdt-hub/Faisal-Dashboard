@@ -218,7 +218,6 @@ const Notification = () => {
   }
   const dispatch = useDispatch();
   const {notifications} = useSelector(state=> state.getNotifications);
-  console.log(notifications)
 
   useEffect(()=>{
     dispatch(getNotification())

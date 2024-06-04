@@ -21,7 +21,6 @@ export const changePassword = createAsyncThunk(
             });
             return response?.data?.message;
         }catch(error){
-            console.log(error)
             return thunkApi.rejectWithValue(error?.response?.data?.message);
         }
         
