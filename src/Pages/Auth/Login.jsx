@@ -1,4 +1,3 @@
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,37 +11,27 @@ const Login = () => {
 
 
   const onFinish = (values) => {
-    dispatch(login(values))
-    .then((response)=>{
-      if(response.payload.role === "USER"){
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "You Haven't access to Login",
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }else{
-        if(response?.type === "login/fulfilled" ){
+    dispatch(login(values)).then((response)=>{
+        if(response?.type === "login/fulfilled" && (response?.payload?.role === "ADMIN" || response?.payload?.role === "SUPER ADMIN") ){
           Swal.fire({
             position: "center",
             icon: "success",
             title: "Logged in Successfully",
             showConfirmButton: false,
             timer: 1500
-          }).then((response)=>{
+          }).then(()=>{
             navigate("/")
           }) 
         }else{
           Swal.fire({
             position: "center",
             icon: "error",
-            title: response?.payload,
+            title: response?.payload?.role === "USER" ?  "Unauthorized User" : response?.payload,
             showConfirmButton: false,
             timer: 1500
           })
         }
-      }
+      
 
       
     });

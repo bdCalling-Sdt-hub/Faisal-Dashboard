@@ -1,166 +1,12 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react'
-import { RiDeleteBin6Line } from "react-icons/ri";
 import BackButton from './BackButton';
 import { getNotification } from "../../redux/apiSlice/Notification/getNotificationSlice"
 import { useDispatch, useSelector } from 'react-redux';
+import { ImageConfig } from '../../../Config';
+import moment from 'moment';
 
-const data = [
-    {
-      key: "1",
-      name: "Tushar ",
-      email: "tushar@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "2",
-      name: "Rahman",
-      email: "rahman@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "3",
-      name: "Rafsan",
-      email: "rafsan@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "4",
-      name: "jusef",
-      email: "jusef@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "Out Of Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "5",
-      name: "Asad",
-      email: "asad@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "Out Of Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "6",
-      name: "Fahim",
-      email: "fahim@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "Out Of Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "7",
-      name: "Nadir",
-      email: "nadir@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "8",
-      name: "Tushar ",
-      email: "tushar@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "9",
-      name: "Rahman",
-      email: "rahman@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "10",
-      name: "Rafsan",
-      email: "rafsan@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "11",
-      name: "jusef",
-      email: "jusef@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "Out Of Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "12",
-      name: "Asad",
-      email: "asad@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "Out Of Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "13",
-      name: "Fahim",
-      email: "fahim@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "Out Of Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    },
-    {
-      key: "14",
-      name: "Nadir",
-      email: "nadir@gmail.com",
-      date: "18 Jul, 2023  4:30pm",
-      location: "Banasree",
-      status: "In Stock",
-      selling: "500",
-      balance: "600",
-      image: "https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg"
-    }
-];
+
 const Notification = () => {
   const [page, setPage] = useState( new URLSearchParams(window.location.search).get('page') || 1);
 
@@ -169,6 +15,9 @@ const Notification = () => {
           title: "S.No",
           dataIndex: "key",
           key: "key",
+          render: (_,record, index) => (
+            <p>{index + 1}</p>
+          )
         },
         {
           title: "Notification",
@@ -177,7 +26,7 @@ const Notification = () => {
           render: (_,record) => (
             <div style={{display: "flex", alignItems: 'center', gap: "16px"}}>
                 <img 
-                    src={record.image} 
+                    src={`${record?.user?.image.startsWith("https") ? record?.user?.image : `${ImageConfig}/${record?.user?.image}`}`} 
                     alt="" 
                     style={{
                         width: "45px", 
@@ -187,26 +36,19 @@ const Notification = () => {
                     }}
                 />
                 <div>
-                    <p>{record?.name}</p>
-                    <p>{record?.email}</p>
+                    <p>{record?.user?.fullName}</p>
+                    <p>{record?.user?.email}</p>
                 </div>
             </div>
           ),
         },
         {
           title: "Time-Date",
-          dataIndex: "date",
-          key: "date",
-        },
-        {
-          title: "Actions",
-          dataIndex: "status",
-          key: "status",
-          render: (_,record) => (
-            <div style={{display: "flex", cursor: "pointer", width: "30px", borderRadius: "8px", border: "1px solid #D5D5D5", height: "30px", alignItems: 'center', justifyContent:"center"}}>
-                <RiDeleteBin6Line size={16} color='#EF3826' />
-            </div>
-          ),
+          dataIndex: "createdAt",
+          key: "createdAt",
+          render: (_, record) => (
+            <p>{moment(record?.createdAt).format("L")}</p>
+          )
         }
   ];
 
@@ -217,11 +59,13 @@ const Notification = () => {
     window.history.pushState(null, "", `?${params.toString()}`);
   }
   const dispatch = useDispatch();
-  const {notifications} = useSelector(state=> state.getNotifications);
+  const {notifications, pagination} = useSelector(state=> state.getNotifications);
 
   useEffect(()=>{
     dispatch(getNotification())
-  }, [dispatch])
+  }, [dispatch]);
+
+  
   return (
         <div>
             
@@ -238,9 +82,10 @@ const Notification = () => {
                 <h1 style={{fontSize: "32px", fontWeight: 600, color: "#6A6D7C"}}>Notifications </h1>
                 <Table 
                     columns={columns} 
-                    dataSource={data} 
+                    dataSource={notifications} 
                     pagination={{
                       pageSize: 8,
+                      total: pagination?.total,
                       defaultCurrent: parseInt(page),
                       onChange: handlePageChange
                     }}

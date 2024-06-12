@@ -15,12 +15,12 @@ export const updateAbout = createAsyncThunk(
             const response = await baseURL.post(`/aboutus`, value, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem('token')}`,
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
             return response?.data.data;
         }catch(error){
-            const message = error?.message;
+            const message = error.response.data.messege;
             return thunkApi.rejectWithValue(message);
         }
         
@@ -37,7 +37,7 @@ export const updateAboutSlice = createSlice({
         builder.addCase(updateAbout.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(updateAbout.fulfilled, (state, action)=> {
+        builder.addCase(updateAbout.fulfilled, (state)=> {
             state.error= false,
             state.success= true,
             state.loading= false

@@ -14,7 +14,7 @@ const TotalSellerListTable = () =>{
   const {sellers} = useSelector(state=> state.getSellerList)
 
   useEffect(()=>{
-    dispatch(getSellerList())
+    dispatch(getSellerList({}))
   }, [dispatch])
 
 

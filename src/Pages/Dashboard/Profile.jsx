@@ -19,7 +19,6 @@ const Profile = () => {
     useEffect(()=>{
         if (user) {
             form.setFieldsValue(user);
-            setImgURL(user?.image?.startsWith("https") ? user?.image : `${ImageConfig}/${user?.image}`)
         }
     }, [user, form]);
 
@@ -61,7 +60,6 @@ const Profile = () => {
         setImgURL(imgUrl);
         setImage(file)
     };
-
     return (
         <div>
             <div style={{margin: "30px 0"}}>
@@ -78,8 +76,8 @@ const Profile = () => {
                         height: "130px", 
                         borderRadius: "18px", 
                         border: "1px dashed #4C535F", 
-                        background: "white",
-                        backgroundImage: `url(${ imgURL})`, 
+                        background: "transparent",
+                        backgroundImage: `url(${imgURL ? imgURL : user?.image?.startsWith("https") ? user?.image : `${ImageConfig}/${user?.image}` })`, 
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         

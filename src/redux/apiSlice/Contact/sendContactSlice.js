@@ -17,9 +17,11 @@ export const sendContact = createAsyncThunk(
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
+            console.log(response)
             return response?.data;
         }catch(error){
-            const message = error?.message;
+            console.log(error)
+            const message = error?.response?.data.message;
             return thunkApi.rejectWithValue(message);
         }
         

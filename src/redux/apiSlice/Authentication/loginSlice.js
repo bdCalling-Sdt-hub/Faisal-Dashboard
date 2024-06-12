@@ -20,9 +20,9 @@ export const login = createAsyncThunk(
                 }
             });
             localStorage.setItem('token', JSON.stringify(response?.data?.token));
-            localStorage.setItem('user', JSON.stringify(response?.data?.data));
             return response?.data?.data;
         }catch(error){
+            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }

@@ -11,9 +11,12 @@ const initialState = {
 
 export const getContact = createAsyncThunk(
     'getContact',
-    async (value, thunkApi) => {
+    async (search, thunkApi) => {
         try{
-            const response = await baseURL.get(`/contact`, {
+            const params = new URLSearchParams();
+            if (search) params.append('search', search);
+
+            const response = await baseURL.get(`/contact?${params.toString()}`, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,

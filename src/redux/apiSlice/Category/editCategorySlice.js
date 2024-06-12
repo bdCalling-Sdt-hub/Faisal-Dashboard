@@ -20,7 +20,8 @@ export const editCategory = createAsyncThunk(
             });
             return response?.data.message;
         }catch(error){
-            const message = error?.message;
+            console.log(error)
+            const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }
         
@@ -37,7 +38,7 @@ export const editCategorySlice = createSlice({
         builder.addCase(editCategory.pending, (state)=> {
             state.loading= true
         }),
-        builder.addCase(editCategory.fulfilled, (state, action)=> {
+        builder.addCase(editCategory.fulfilled, (state)=> {
             state.error= false,
             state.success= true,
             state.loading= false

@@ -32,12 +32,13 @@ const AboutUs = () => {
 
     const handleUpdate=()=>{
         dispatch(updateAbout({aboutUs: content})).then((response)=>{
+            console.log(response)
             if(response?.type === "updateAbout/fulfilled"){
                 dispatch(getAbout());
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Updated Successfully",
+                    title: "About Us Updated Successfully",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -45,7 +46,7 @@ const AboutUs = () => {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Something went Wrong",
+                    title: response?.payload,
                     showConfirmButton: false,
                     timer: 1500
                 });

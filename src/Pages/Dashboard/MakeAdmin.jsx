@@ -41,6 +41,14 @@ const MakeAdmin = () => {
                         }).then(()=>{
                             dispatch(getAdmins());
                         })
+                    }else{
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            timer: 1500,
+                            showConfirmButton: false,
+                            text: response?.payload
+                        })
                     }
                 });
                         

@@ -15,12 +15,12 @@ export const updatePrivacy = createAsyncThunk(
             const response = await baseURL.post(`/privacy`, value, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`,
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
             return response?.data.data;
         }catch(error){
-            const message = error?.message;
+            const message = error.response.data.messege;
             return thunkApi.rejectWithValue(message);
         }
         

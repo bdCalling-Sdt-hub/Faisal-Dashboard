@@ -15,7 +15,7 @@ export const getPrivacy = createAsyncThunk(
             const response = await baseURL.get(`/privacy`, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem('token')}`,
+                    authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
             return response?.data.data;

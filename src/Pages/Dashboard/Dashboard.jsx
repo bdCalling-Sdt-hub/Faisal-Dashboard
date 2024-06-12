@@ -337,7 +337,7 @@ const Dashboard = () => {
                 }}
               >
                 <img 
-                  src={` ${user?.image?.startsWith("https") ? user?.image : `${ImageConfig}/${user?.image}` }   `}
+                  src={` ${user?.image?.startsWith("https") ? user?.image : `${ImageConfig}/${user?.image}`}`}
                   style={{width: "30px", height: "30px", borderRadius: "100%"}} alt=""
                 />
                 <h2 style={{color: "black", fontSize: "10px"}}>{user?.fullName}</h2>

@@ -18,11 +18,12 @@ const TotalSellerList = () => {
     const dropdownRef = useRef();
     const dispatch = useDispatch();
     const {sellers} = useSelector(state=> state.getSellerList)
+    console.log(sellers)
     
 
     useEffect(()=>{
-      dispatch(getSellerList())
-    }, [dispatch])
+      dispatch(getSellerList({page: page, search: search}))
+    }, [dispatch, page, search])
 
 
     const handleDelete=(id)=>{

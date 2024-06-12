@@ -7,8 +7,6 @@ import { IoClose } from 'react-icons/io5';
 import { MdDelete } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
-import { TfiLink } from "react-icons/tfi";
-import { FaFileImage } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { getContact } from "../../redux/apiSlice/Contact/getContactSlice";
 import { sendContact } from "../../redux/apiSlice/Contact/sendContactSlice";
@@ -22,12 +20,12 @@ const Emails = () => {
     const [to, setTo] = useState("");
     const [message, setMessage] = useState("")
     const dispatch = useDispatch();
-    const {contacts, pagination} = useSelector(state=> state.getContacts)
+    const {contacts, pagination} = useSelector(state=> state.getContacts);
 
 
     useEffect(()=>{
-        dispatch(getContact())
-    }, [dispatch])
+        dispatch(getContact(search))
+    }, [dispatch, search])
 
     const handleReset=()=>{
         setTo("");
@@ -58,7 +56,9 @@ const Emails = () => {
                     title: response?.payload?.message,
                     showConfirmButton: false,
                     timer: 1500
-                });
+                }).then(()=>{
+                    dispatch(getContact())
+                })
             }
         })
     }
@@ -215,14 +215,13 @@ const Emails = () => {
                                         size="middle"
                                     />
                                 </div>
-                                <MdDelete  style={{cursor: "pointer"}} size={25} />
                             </div>
                             
                             <Table columns={columns} dataSource={contacts} pagination={false} />
 
                             {/* pagination */}
                             <div style={{
-                                display: "flex",
+                                display: contacts?.length > 0 ? "flex" : "none",
                                 alignItems: "center",
                                 justifyContent: 'center',
                                 marginTop: "25px"
@@ -320,26 +319,7 @@ const Emails = () => {
                                         paddingRight: "24px"
                                     }}
                                 >
-                                    <div 
-                                        style={{
-                                            width: "fit-content",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "12px"
-                                        }}
-                                    >
-                                        <input type="file" id='file' style={{display: "none"}} />
-                                        <input type="file" id='img' style={{display: "none"}} />
-
-                                        <label  style={{display: "block"}} htmlFor="file">
-                                            <TfiLink  size={20} color='#9D9D9D' />
-                                        </label>
-
-                                        <label htmlFor="img">
-                                            <FaFileImage htmlFor="img" size={20} color='#9D9D9D' />
-                                        </label>
-
-                                        <button
+                                    <button
                                             onClick={handleSubmit}
                                             style={{
                                                 width: "120px",
@@ -356,9 +336,8 @@ const Emails = () => {
                                                 cursor: "pointer"
                                             }}
                                         >
-                                            Send <LuSend color='white' /> 
-                                        </button>
-                                    </div>
+                                        Send <LuSend color='white' /> 
+                                    </button>
                                 </div>
                             </div>
                         </div> 

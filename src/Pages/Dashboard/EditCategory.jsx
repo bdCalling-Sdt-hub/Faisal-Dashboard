@@ -12,8 +12,7 @@ const { Option } = Select;
 
 const EditCategory = () => {
     const [image, setImage] = useState();
-    const [imageURL, setimageURL] = useState(null)
-    const [categoryImage, setCategoryImage] = useState(null)
+    const [imageURL, setImageURL] = useState(null)
     const [number, setNumber] = useState(0);
     const [value, setValue] = useState("")
     const dispatch = useDispatch();
@@ -57,7 +56,6 @@ const EditCategory = () => {
         if(category){
             const initialValues = {
                 categoryName: category?.categoryName,
-                categoryImage: category?.categoryImage,
                 someExtraField: category?.someExtraField?.map((item, index) => ({
                     name: item.name,
                     type: item.type,
@@ -74,7 +72,7 @@ const EditCategory = () => {
         const file = e.target.files[0];
         setImage(file);
         const url = URL.createObjectURL(file)
-        setimageURL(url)
+        setImageURL(url)
     }
     return (
         <div>
@@ -141,7 +139,7 @@ const EditCategory = () => {
                                     justifyContent: "center",
                                     color: "black",
                                     cursor: "pointer",
-                                    backgroundImage:    `url(${ imageURL ? imageURL : `${ImageConfig}/${categoryImage}` })`,
+                                    backgroundImage:    `url(${ imageURL ? imageURL : `${ImageConfig}/${category?.categoryImage}` })`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center"
                                 }}
