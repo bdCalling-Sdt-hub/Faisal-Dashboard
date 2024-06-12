@@ -20,7 +20,6 @@ export const editCategory = createAsyncThunk(
             });
             return response?.data.message;
         }catch(error){
-            console.log(error)
             const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }

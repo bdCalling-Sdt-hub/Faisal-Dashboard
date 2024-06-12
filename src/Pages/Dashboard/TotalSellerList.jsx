@@ -18,7 +18,6 @@ const TotalSellerList = () => {
     const dropdownRef = useRef();
     const dispatch = useDispatch();
     const {sellers} = useSelector(state=> state.getSellerList)
-    console.log(sellers)
     
 
     useEffect(()=>{

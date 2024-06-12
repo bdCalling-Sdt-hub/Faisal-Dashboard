@@ -32,7 +32,6 @@ const AboutUs = () => {
 
     const handleUpdate=()=>{
         dispatch(updateAbout({aboutUs: content})).then((response)=>{
-            console.log(response)
             if(response?.type === "updateAbout/fulfilled"){
                 dispatch(getAbout());
                 Swal.fire({
