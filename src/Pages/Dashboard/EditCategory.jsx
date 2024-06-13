@@ -211,8 +211,6 @@ const EditCategory = () => {
                                                 <Option value="CHECKBOX">CHECKBOX</Option>
                                                 <Option value="RADIO">RADIO</Option>
                                                 <Option value="CHOOSE">CHOOSE</Option>
-                                                <Option value="IMAGE">IMAGE</Option>
-                                                <Option value="DATE">DATE</Option>
                                                 <Option value="INPUT">INPUT</Option>
                                             </Select>
                                         </Form.Item>

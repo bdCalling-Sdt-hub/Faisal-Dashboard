@@ -17,9 +17,11 @@ export const createCategory = createAsyncThunk(
                     authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                 }
             });
+            
             return response?.data.message;
         }catch(error){
-            const message = error?.message;
+            console.log(error)
+            const message = error?.response?.data?.message;
             return thunkApi.rejectWithValue(message);
         }
         

@@ -57,8 +57,16 @@ const AddCategory = () => {
                     title: "Category Created Successfully",
                     showConfirmButton: false,
                     timer: 1500
-                }).then((response)=>{
+                }).then(()=>{
                     window.location.replace("/category")
+                })
+            }else{
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: response?.payload,
+                    showConfirmButton: false,
+                    timer: 1500
                 })
             }
         })
@@ -204,8 +212,6 @@ const AddCategory = () => {
                                                 <Option value="CHECKBOX">CHECKBOX</Option>
                                                 <Option value="RADIO">RADIO</Option>
                                                 <Option value="CHOOSE">CHOOSE</Option>
-                                                <Option value="IMAGE">IMAGE</Option>
-                                                <Option value="DATE">DATE</Option>
                                                 <Option value="INPUT">INPUT</Option>
                                             </Select>
                                         </Form.Item>

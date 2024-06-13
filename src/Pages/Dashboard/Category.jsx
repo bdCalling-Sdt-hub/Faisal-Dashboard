@@ -66,6 +66,9 @@ const Category = () => {
             title: 'Category Name',
             dataIndex: 'categoryName',
             key: "categoryName",
+            render: ( _, record ) => (
+                <p style={{textTransform: "capitalize"}}>{record?.categoryName}</p>
+            )
         },
         {
             title: 'ACTIONS',
